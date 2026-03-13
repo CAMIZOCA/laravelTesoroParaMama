@@ -43,7 +43,7 @@ class Product extends Model
     {
         $phone = config('app.whatsapp_number', '593999829469');
         $message = $this->whatsapp_message
-            ?? "Hola! Me interesa el kit *{$this->name}* - ${$this->price}. ¿Podría darme más información?";
+            ?? "Hola! Me interesa el kit *{$this->name}* - \${$this->price}. ¿Podría darme más información?";
 
         return 'https://wa.me/' . $phone . '?text=' . urlencode($message);
     }
