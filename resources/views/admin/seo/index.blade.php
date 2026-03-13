@@ -249,16 +249,16 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="form-label" for="twitter_site">Twitter Site (@usuario)</label>
+                                <label class="form-label" for="twitter_site">Twitter Site (@@usuario)</label>
                                 <input type="text" id="twitter_site" name="twitter_site"
                                        value="{{ old('twitter_site', $seo['twitter_site']) }}"
-                                       class="form-input" placeholder="@untesoroparamama">
+                                       class="form-input" placeholder="@@untesoroparamama">
                             </div>
                             <div>
-                                <label class="form-label" for="twitter_creator">Twitter Creator (@usuario)</label>
+                                <label class="form-label" for="twitter_creator">Twitter Creator (@@usuario)</label>
                                 <input type="text" id="twitter_creator" name="twitter_creator"
                                        value="{{ old('twitter_creator', $seo['twitter_creator']) }}"
-                                       class="form-input" placeholder="@untesoroparamama">
+                                       class="form-input" placeholder="@@untesoroparamama">
                             </div>
                         </div>
                     </div>
@@ -377,13 +377,13 @@
                         <p class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Vista previa del JSON-LD generado</p>
                         <pre class="bg-gray-900 text-green-400 rounded-xl p-4 text-xs overflow-x-auto leading-relaxed font-mono">{
   "@@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@@type": "LocalBusiness",
   "name": "{{ $seo['site_name'] }}",
-  "description": "{{ Str::limit($seo['meta_description'], 80) }}",
+  "description": "{{ \Illuminate\Support\Str::limit($seo['meta_description'], 80) }}",
   "telephone": "{{ $seo['schema_phone'] ?? '' }}",
   "email": "{{ $seo['schema_email'] ?? '' }}",
   "address": {
-    "@type": "PostalAddress",
+    "@@type": "PostalAddress",
     "addressLocality": "{{ $seo['schema_address'] ?? '' }}"
   }
 }</pre>

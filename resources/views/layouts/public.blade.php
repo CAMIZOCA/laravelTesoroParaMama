@@ -1,7 +1,6 @@
 @php
-    use App\Models\SeoSetting;
-    $seo     = SeoSetting::all_settings();
-    $defaults = SeoSetting::defaults();
+    $seo     = \App\Models\SeoSetting::all_settings();
+    $defaults = \App\Models\SeoSetting::defaults();
 
     // Helper to get seo value with page override or default
     $s = fn(string $key) => ($seo[$key] ?? $defaults[$key] ?? '');
