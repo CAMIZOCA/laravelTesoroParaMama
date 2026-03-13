@@ -42,7 +42,10 @@
       "Bash(grep -l \"public.blade.php\\\\|layouts/public\" D:/laragon/www/untesoroparamama/storage/framework/views/*.php)",
       "Bash(git init:*)",
       "Bash(git remote:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ]
   }
 }
