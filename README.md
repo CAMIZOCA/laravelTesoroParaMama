@@ -1,59 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Un Tesoro Para Mamá — Breastmilk Jewelry E-Commerce Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-stack e-commerce platform built for a niche artisanal business selling DIY breastmilk jewelry kits. The system pairs a conversion-optimized public storefront with a complete content management layer — covering products, categories, a curated gallery, page copy, and SEO metadata — all manageable through a dedicated admin dashboard without touching code.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Un Tesoro Para Mamá** sells handcrafted DIY kits that allow mothers to preserve a piece of their breastfeeding journey in the form of wearable jewelry. The business operates in Ecuador and uses WhatsApp as its primary sales channel, so the platform is built around a direct-to-customer funnel: emotionally resonant product pages with contextual WhatsApp CTAs that pre-fill a message, reducing friction before the first conversation happens.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Every headline, paragraph, and image on the homepage can be updated through the admin without a deployment. SEO configuration — meta tags, Open Graph, JSON-LD schema, robots.txt, and sitemap — is also managed through the dashboard, making the platform self-sufficient for a small team operating without a developer on-call.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Key Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Admin CMS**: Manage products, categories, gallery items, homepage copy, and SEO settings through a dedicated dashboard — no code changes required for content updates
+- **WhatsApp Commerce**: Each product generates a pre-filled WhatsApp deep link, enabling direct customer contact without a traditional checkout or payment gateway
+- **SEO Management Panel**: Full control over meta titles, descriptions, Open Graph, Twitter Cards, JSON-LD schema (LocalBusiness), Google Analytics / GTM / Meta Pixel IDs, and robots.txt from a single settings screen
+- **Dynamic Sitemap**: Auto-generated XML sitemap served at `/sitemap.xml`, built from active product records
+- **Cache-First Settings**: `SeoSetting` and `PageContent` use `Cache::rememberForever` with targeted invalidation on write, keeping database queries off the hot path for static content
+- **Flexible Product Modeling**: Badges, discount pricing with computed percentage, per-product WhatsApp messages, and multiple gallery images stored as JSON fields on the product record
+- **Responsive Design**: Mobile-first layout built with Tailwind CSS using a custom cream/gold/olive palette and Cormorant Garamond typography, crafted to match the brand's premium, artisanal positioning
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Tech Stack
 
-### Premium Partners
+### Frontend
+- **Alpine.js** 3 — lightweight reactivity for modals, dropdowns, and interactive UI state
+- **Axios** — HTTP client for async requests
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Backend
+- **Laravel** 12 — routing, Eloquent ORM, file storage, caching, queue
+- **Laravel Breeze** — minimal authentication scaffolding (login, register, email verification)
+- **PHP** 8.2+
 
-## Contributing
+### Database
+- **MySQL** (production) / **SQLite** (local development)
+- Tables: `products`, `categories`, `gallery_items`, `seo_settings`, `page_contents`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Styling / UI
+- **Tailwind CSS** 3 with `@tailwindcss/forms`
+- Custom design tokens: warm cream palette (50–200), gold accents (300–600), olive text (700–900)
+- Typography: Cormorant Garamond (display/headings) + Inter (body)
 
-## Code of Conduct
+### Tooling / Other
+- **Vite** 7 with `laravel-vite-plugin` — asset bundling and HMR in development
+- **Laravel Pint** — PSR-12 code style enforcement
+- **Laravel Sail** — Docker environment for local development
+- **WhatsApp Business** deep links — pre-filled message URLs generated per product
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## My Role
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+I designed and built this platform end-to-end as a solo full-stack project. Key responsibilities included:
 
-## License
+- **Architecture**: Chose a key-value CMS model (`SeoSetting`, `PageContent`) over rigid table schemas to allow flexible content updates without schema migrations. Implemented cache-first reads with targeted invalidation to eliminate repeated DB hits on static configuration.
+- **Product domain**: Designed the `Product` model with JSON fields for `gallery` and `includes` arrays, Eloquent accessors for image URL resolution and WhatsApp deep link generation, and computed discount percentage logic.
+- **Admin dashboard**: Built CRUD interfaces for all content types with image uploads, auto-generated slugs, active/inactive toggling, and integer-based ordering.
+- **SEO system**: Designed a fully configurable SEO layer — from meta tags and Open Graph to JSON-LD schema, analytics tag injection, sitemap generation, and robots.txt — all stored in the database and served from cache.
+- **Frontend**: Implemented the homepage (hero, brand story, product showcase, gallery, CTA) using Tailwind CSS and Alpine.js, with a custom design system reflecting the brand's aesthetic.
+- **Deployment**: Pre-compiled assets committed to the repository and configured storage linking for straightforward deployment to shared/VPS hosting.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Screenshots
+
+> _Screenshots coming soon. The admin dashboard, homepage hero, product cards, and WhatsApp CTA flow will be documented here._
+
+| View | Preview |
+|------|---------|
+| Homepage Hero | `docs/screenshots/homepage-hero.png` |
+| Product Catalog | `docs/screenshots/products.png` |
+| Admin — Products | `docs/screenshots/admin-products.png` |
+| Admin — SEO Settings | `docs/screenshots/admin-seo.png` |
+
+---
+
+## Local Setup
+
+1. **Clone and install PHP dependencies**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/untesoroparamama.git
+   cd untesoroparamama
+   composer install
+   ```
+
+2. **Configure the environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   Update `.env` with your database credentials and `WHATSAPP_NUMBER`.
+
+3. **Run migrations**
+   ```bash
+   php artisan migrate
+   ```
+
+4. **Install frontend dependencies and build assets**
+   ```bash
+   npm install
+   npm run build
+   ```
+
+5. **Link public storage**
+   ```bash
+   php artisan storage:link
+   ```
+
+6. **Create an admin account**
+   ```bash
+   php artisan tinker
+   # >>> \App\Models\User::factory()->create(['email' => 'admin@example.com', 'password' => bcrypt('password')]);
+   ```
+
+7. **Start the development server**
+   ```bash
+   composer run dev   # runs artisan serve + vite concurrently
+   ```
+   Admin panel: `http://localhost:8000/admin`
+
+---
+
+## Technical Highlights
+
+- **Cache-First CMS Layer**: `SeoSetting` and `PageContent` models read from `Cache::rememberForever` on every request. Writes call `Cache::forget` on the affected key immediately — no TTL drift, no stale data, no database hits on the hot path for settings that change infrequently.
+
+- **WhatsApp Commerce Pattern**: The platform generates `https://wa.me/{phone}?text={encoded_message}` deep links per product instead of building a traditional cart. Each product record can define a custom message template. For a small artisanal business in Latin America, this approach removes payment processing complexity and leverages a channel with high existing trust and engagement.
+
+- **Accessor-Driven URL Resolution**: The `Product` model centralizes all URL logic. `image_url` returns either the stored file path or a Picsum placeholder; `whatsapp_url` URL-encodes the product message automatically. Views never assemble URLs manually, keeping templates clean and logic testable.
+
+- **JSON Fields for Flexible Lists**: `products.gallery` and `products.includes` are stored as JSON and cast to arrays via Eloquent. This avoids pivot tables for small, ordered lists that have no relational querying requirements — a deliberate trade-off for simplicity over normalization.
+
+- **SEO-First Public Layout**: The public layout template renders `<meta>`, Open Graph, Twitter Card, and `<script type="application/ld+json">` blocks on every page, hydrated from the database-backed `SeoSetting` model. Google Analytics, GTM, and Meta Pixel tags are injected conditionally only when their IDs are configured, keeping pages clean by default.
+
+---
+
+## Future Improvements
+
+- **Order tracking**: Lightweight order board to track WhatsApp-initiated orders through a status flow (pending → confirmed → shipped)
+- **Image optimization**: Automatic WebP conversion and responsive `srcset` generation on upload
+- **Automated tests**: Feature tests for admin CRUD flows and homepage rendering; no test coverage currently
+- **Role-based access**: Granular permissions (content editor vs. full admin) with Spatie Laravel Permission
+- **CDN integration**: Offload product and gallery images to S3 or Cloudflare R2 for scalable media delivery
+- **Internationalization**: Extract hardcoded Spanish strings into Laravel lang files to support additional locales
+
+---
+
+## Notes
+
+This project was built for a real operating business, which shaped every trade-off: the CMS-first approach, the WhatsApp-driven conversion strategy, and the minimal dependency footprint all reflect practical constraints rather than theoretical ideals. The codebase is intentionally lean — no speculative abstractions, no unused features.
