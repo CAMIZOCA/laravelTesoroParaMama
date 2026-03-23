@@ -1,0 +1,102 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 2 /Kids [5 0 R 7 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 2430 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 792 Tm (Guia practica para el cliente) Tj
+1 0 0 1 50 772 Tm (Sitio web: Un Tesoro Para Mama) Tj
+1 0 0 1 50 753 Tm (Esta guia explica de forma sencilla como funciona la web y como usar el panel) Tj
+1 0 0 1 50 737 Tm (administrativo.) Tj
+1 0 0 1 50 718 Tm (No se requieren conocimientos tecnicos.) Tj
+1 0 0 1 50 693 Tm (1. Como funciona la web) Tj
+1 0 0 1 50 673 Tm (La web muestra tus productos, historia, galeria, testimonios y preguntas frecuentes.) Tj
+1 0 0 1 50 654 Tm (Las clientas ven los kits y te contactan para comprar.) Tj
+1 0 0 1 50 635 Tm (Desde el panel admin puedes actualizar textos, imagenes y productos sin tocar codigo.) Tj
+1 0 0 1 50 610 Tm (2. Ingreso al admin) Tj
+1 0 0 1 50 590 Tm (Sitio: https://untesoroparamama.com) Tj
+1 0 0 1 50 571 Tm (Login: https://untesoroparamama.com/login) Tj
+1 0 0 1 50 552 Tm (Panel admin: https://untesoroparamama.com/admin) Tj
+1 0 0 1 50 533 Tm (Credenciales actuales:) Tj
+1 0 0 1 50 514 Tm (Usuario: admin@untesoroparamama.com) Tj
+1 0 0 1 50 495 Tm (Contrasena: admin123456) Tj
+1 0 0 1 50 476 Tm (Recomendacion: cambiar la contrasena despues del primer ingreso.) Tj
+1 0 0 1 50 451 Tm (3. Que puedes editar) Tj
+1 0 0 1 50 431 Tm (Dashboard: resumen general.) Tj
+1 0 0 1 50 412 Tm (Productos: crear, editar, activar/desactivar, precio e imagenes.) Tj
+1 0 0 1 50 393 Tm (Categorias: organizar productos.) Tj
+1 0 0 1 50 374 Tm (Galeria: subir fotos.) Tj
+1 0 0 1 50 355 Tm (Contenido: textos e imagenes de la home e instrucciones.) Tj
+1 0 0 1 50 336 Tm (Tema: colores del sitio.) Tj
+1 0 0 1 50 317 Tm (SEO: titulo, descripcion e imagen para compartir en redes.) Tj
+1 0 0 1 50 292 Tm (4. Flujo recomendado para editar productos) Tj
+1 0 0 1 50 272 Tm (1\) Ir a Admin > Productos.) Tj
+1 0 0 1 50 253 Tm (2\) Crear o editar producto.) Tj
+1 0 0 1 50 234 Tm (3\) Completar nombre, precio, categoria y descripcion.) Tj
+1 0 0 1 50 215 Tm (4\) Subir imagen principal.) Tj
+1 0 0 1 50 196 Tm (5\) Guardar y revisar en la tienda publica.) Tj
+1 0 0 1 50 177 Tm (Tip: si no quieres mostrar un producto, desactivalo en lugar de borrarlo.) Tj
+1 0 0 1 50 152 Tm (5. Flujo recomendado para editar la pagina principal) Tj
+1 0 0 1 50 132 Tm (1\) Ir a Admin > Contenido.) Tj
+1 0 0 1 50 113 Tm (2\) Editar solo la seccion necesaria \(Hero, Historia, FAQ, etc.\).) Tj
+1 0 0 1 50 94 Tm (3\) Guardar cambios.) Tj
+1 0 0 1 50 75 Tm (4\) Abrir el sitio y recargar para verificar.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 1146 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 792 Tm (Consejo: hacer cambios pequenos y validar uno por uno.) Tj
+1 0 0 1 50 767 Tm (6. SEO en lenguaje simple) Tj
+1 0 0 1 50 747 Tm (SEO ayuda a que Google entienda mejor tu pagina.) Tj
+1 0 0 1 50 728 Tm (En Admin > SEO puedes editar titulo y descripcion.) Tj
+1 0 0 1 50 709 Tm (Tambien puedes cambiar la imagen que se comparte en WhatsApp o Facebook.) Tj
+1 0 0 1 50 690 Tm (Si tienes duda, cambia solo titulo y descripcion con textos claros.) Tj
+1 0 0 1 50 665 Tm (7. Buenas practicas) Tj
+1 0 0 1 50 645 Tm (Usar imagenes con buena luz.) Tj
+1 0 0 1 50 626 Tm (Revisar precios y stock regularmente.) Tj
+1 0 0 1 50 607 Tm (Probar enlaces de contacto.) Tj
+1 0 0 1 50 588 Tm (Hacer una revision semanal de home, tienda y pedidos.) Tj
+1 0 0 1 50 569 Tm (Guardar esta guia para futuras personas del equipo.) Tj
+1 0 0 1 50 544 Tm (8. Soporte) Tj
+1 0 0 1 50 524 Tm (Si aparece un error, toma una captura y reporta:) Tj
+1 0 0 1 50 505 Tm (- Hora aproximada) Tj
+1 0 0 1 50 486 Tm (- Pagina donde paso) Tj
+1 0 0 1 50 467 Tm (- Que estabas haciendo) Tj
+1 0 0 1 50 448 Tm (Con esos datos el soporte puede resolver mas rapido.) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000002673 00000 n 
+0000002799 00000 n 
+0000003997 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4123
+%%EOF
