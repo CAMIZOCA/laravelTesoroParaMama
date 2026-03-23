@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\RedirectResponse;
 
 class MediaController extends Controller
 {
-    public function show(string $path): Response
+    public function show(string $path): RedirectResponse
     {
         $normalized = ltrim($path, '/');
 
@@ -15,13 +14,8 @@ class MediaController extends Controller
             abort(404);
         }
 
-        $disk = Storage::disk('public');
-
-        if (! $disk->exists($normalized)) {
-            abort(404);
-        }
-
-        return response()->file($disk->path($normalized));
+        // Shared hosting can restrict PHP file access outside public_html.
+        // Redirect to the publicly exposed storage path handled by the web server.
+        return redirect()->to(asset('storage/' . $normalized));
     }
 }
-
