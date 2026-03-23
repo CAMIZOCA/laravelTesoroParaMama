@@ -95,8 +95,7 @@
     </script>
 
     {{-- ── Favicon ── --}}
-    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-    <link rel="icon" type="image/png"     href="{{ asset('favicon.png') }}" sizes="32x32">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
 
     {{-- ── Fonts & Assets ── --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -5,6 +5,19 @@
 
 @section('content')
 
+@php
+    $mediaUrl = function (?string $path): string {
+        $path = trim((string) $path);
+        if ($path === '') {
+            return '';
+        }
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+        return asset('storage/' . ltrim($path, '/'));
+    };
+@endphp
+
 {{-- ═══════════════════════════════════════════════════════════════
      1. HERO PRINCIPAL
 ═══════════════════════════════════════════════════════════════ --}}
@@ -85,7 +98,7 @@
                     <div class="absolute -top-4 -right-4 w-full h-full border border-champagne-300/40 rounded-3xl"></div>
                     <div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
                         @if($c['historia_image'])
-                            <img src="{{ asset('storage/' . $c['historia_image']) }}"
+                            <img src="{{ $mediaUrl($c['historia_image']) }}"
                                  alt="Joya de leche materna"
                                  class="w-full h-full object-cover">
                         @else
@@ -439,7 +452,7 @@
             <div class="order-2 lg:order-1 relative">
                 <div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-xl">
                     @if($c['historia_image'])
-                        <img src="{{ asset('storage/' . $c['historia_image']) }}"
+                        <img src="{{ $mediaUrl($c['historia_image']) }}"
                              alt="{{ $c['historia_title_1'] }}"
                              class="w-full h-full object-cover">
                     @else
@@ -578,7 +591,7 @@
                 <div class="relative rounded-3xl overflow-hidden aspect-square bg-gradient-to-br
                             from-champagne-100 via-blush-50 to-cream-100 shadow-xl">
                     @if($c['tangible_image'])
-                        <img src="{{ asset('storage/' . $c['tangible_image']) }}"
+                        <img src="{{ $mediaUrl($c['tangible_image']) }}"
                              alt="{{ $c['tangible_title'] }}"
                              class="w-full h-full object-cover">
                     @else
@@ -684,7 +697,7 @@
 
             <div class="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
                 @if($c['tangible_image'])
-                    <img src="{{ asset('storage/' . $c['tangible_image']) }}"
+                    <img src="{{ $mediaUrl($c['tangible_image']) }}"
                          alt="{{ $c['tangible_title'] }}"
                          class="w-full h-full object-cover">
                 @else
@@ -768,7 +781,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             @foreach($galleryItems as $item)
             <div class="relative rounded-2xl overflow-hidden aspect-square group">
-                <img src="{{ asset('storage/' . ($item->image ?? '')) }}"
+                <img src="{{ $item->image_url }}"
                      alt="{{ $item->caption ?? '' }}"
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-taupe-900/50 to-transparent

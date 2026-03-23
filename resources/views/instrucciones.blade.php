@@ -6,6 +6,19 @@
 
 @section('content')
 
+@php
+    $mediaUrl = function (?string $path): string {
+        $path = trim((string) $path);
+        if ($path === '') {
+            return '';
+        }
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+        return asset('storage/' . ltrim($path, '/'));
+    };
+@endphp
+
 {{-- ── HERO ── --}}
 <section class="relative bg-gradient-to-b from-cream-100 to-cream-50 pt-28 pb-16 text-center overflow-hidden">
     {{-- Decorative circles --}}
@@ -172,7 +185,7 @@
             {{-- Optional image --}}
             @if($c['instr_step1_image'])
             <div class="rounded-2xl overflow-hidden shadow-md">
-                <img src="{{ asset('storage/' . $c['instr_step1_image']) }}"
+                <img src="{{ $mediaUrl($c['instr_step1_image']) }}"
                      alt="Preservación de leche materna"
                      class="w-full h-full object-cover">
             </div>
@@ -206,7 +219,7 @@
             {{-- Optional image (reversed on desktop) --}}
             @if($c['instr_step2_image'])
             <div class="rounded-2xl overflow-hidden shadow-md lg:order-first">
-                <img src="{{ asset('storage/' . $c['instr_step2_image']) }}"
+                <img src="{{ $mediaUrl($c['instr_step2_image']) }}"
                      alt="Crear joya de leche materna"
                      class="w-full h-full object-cover">
             </div>
