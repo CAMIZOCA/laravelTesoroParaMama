@@ -91,13 +91,58 @@
                 <p class="text-xs text-gray-400 mt-1">Escribe cada elemento incluido en una línea separada</p>
             </div>
 
-            <!-- WhatsApp message -->
-            <div>
-                <label class="form-label" for="whatsapp_message">Mensaje de WhatsApp personalizado</label>
-                <textarea id="whatsapp_message" name="whatsapp_message" rows="2"
-                          class="form-input" maxlength="500"
-                          placeholder="Hola! Me interesa el kit [nombre] - $[precio]. ¿Podría darme más información?">{{ old('whatsapp_message') }}</textarea>
-                <p class="text-xs text-gray-400 mt-1">Si se deja vacío, se usará el mensaje predeterminado</p>
+
+            <!-- Stock -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label class="form-label" for="stock">Stock disponible</label>
+                    <input type="number" id="stock" name="stock" value="{{ old('stock') }}"
+                           min="0" class="form-input" placeholder="Vacío = ilimitado">
+                    <p class="text-xs text-gray-400 mt-1">Déjalo vacío para stock ilimitado</p>
+                </div>
+            </div>
+
+            <!-- Variants -->
+            <div x-data="{
+                variants: [],
+                addVariant() { this.variants.push({ name: '', price: '' }) },
+                removeVariant(i) { this.variants.splice(i, 1) }
+            }">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="form-label mb-0">Variantes (Ej: Dorado, Plateado)</label>
+                    <button type="button" @click="addVariant()"
+                            class="text-xs text-gold-600 hover:text-gold-800 font-medium flex items-center gap-1 transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Agregar variante
+                    </button>
+                </div>
+
+                <template x-if="variants.length === 0">
+                    <p class="text-sm text-gray-400 italic">Sin variantes — el precio base se usará directamente.</p>
+                </template>
+
+                <div class="space-y-3">
+                    <template x-for="(v, i) in variants" :key="i">
+                        <div class="flex items-center gap-3">
+                            <input type="text" :name="'variant_names[' + i + ']'"
+                                   x-model="v.name" class="form-input flex-1" placeholder="Ej: Colgante Dorado">
+                            <div class="relative w-32 flex-shrink-0">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                <input type="number" :name="'variant_prices[' + i + ']'"
+                                       x-model="v.price" step="0.01" min="0" class="form-input pl-7" placeholder="0.00">
+                            </div>
+                            <button type="button" @click="removeVariant(i)"
+                                    class="text-gray-300 hover:text-red-400 transition-colors flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Si hay variantes, el precio base se ignora en la tienda pública.</p>
             </div>
 
             <!-- Image -->

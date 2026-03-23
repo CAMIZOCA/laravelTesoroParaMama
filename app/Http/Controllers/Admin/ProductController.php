@@ -33,9 +33,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'original_price' => 'nullable|numeric|min:0',
+            'stock' => 'nullable|integer|min:0',
             'image' => 'nullable|image|max:2048',
             'includes' => 'nullable|string',
-            'whatsapp_message' => 'nullable|string|max:500',
             'badge' => 'nullable|string|max:50',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
@@ -45,6 +45,7 @@ class ProductController extends Controller
         $validated['slug'] = Str::slug($validated['name']);
         $validated['is_featured'] = $request->boolean('is_featured');
         $validated['is_active'] = $request->boolean('is_active');
+        $validated['stock'] = $request->filled('stock') ? (int) $request->stock : null;
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('products', 'public');
@@ -54,6 +55,18 @@ class ProductController extends Controller
             $lines = array_filter(array_map('trim', explode("\n", $request->includes)));
             $validated['includes'] = array_values($lines);
         }
+
+        // Parse variants from name[] / price[] arrays
+        $variantNames  = $request->input('variant_names', []);
+        $variantPrices = $request->input('variant_prices', []);
+        $variants = [];
+        foreach ($variantNames as $i => $vname) {
+            $vname = trim($vname);
+            if ($vname !== '' && isset($variantPrices[$i]) && $variantPrices[$i] !== '') {
+                $variants[] = ['name' => $vname, 'price' => (float) $variantPrices[$i], 'stock' => null];
+            }
+        }
+        $validated['variants'] = !empty($variants) ? $variants : null;
 
         Product::create($validated);
 
@@ -77,9 +90,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'original_price' => 'nullable|numeric|min:0',
+            'stock' => 'nullable|integer|min:0',
             'image' => 'nullable|image|max:2048',
             'includes' => 'nullable|string',
-            'whatsapp_message' => 'nullable|string|max:500',
             'badge' => 'nullable|string|max:50',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
@@ -89,6 +102,7 @@ class ProductController extends Controller
         $validated['slug'] = Str::slug($validated['name']);
         $validated['is_featured'] = $request->boolean('is_featured');
         $validated['is_active'] = $request->boolean('is_active');
+        $validated['stock'] = $request->filled('stock') ? (int) $request->stock : null;
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('products', 'public');
@@ -100,6 +114,18 @@ class ProductController extends Controller
         } else {
             $validated['includes'] = null;
         }
+
+        // Parse variants from name[] / price[] arrays
+        $variantNames  = $request->input('variant_names', []);
+        $variantPrices = $request->input('variant_prices', []);
+        $variants = [];
+        foreach ($variantNames as $i => $vname) {
+            $vname = trim($vname);
+            if ($vname !== '' && isset($variantPrices[$i]) && $variantPrices[$i] !== '') {
+                $variants[] = ['name' => $vname, 'price' => (float) $variantPrices[$i], 'stock' => null];
+            }
+        }
+        $validated['variants'] = !empty($variants) ? $variants : null;
 
         $product->update($validated);
 

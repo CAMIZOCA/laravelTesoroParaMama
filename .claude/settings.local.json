@@ -45,7 +45,18 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git branch:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(grep -r \"stripe\\\\|payment\\\\|paypal\" D:laragonwwwuntesoroparamama --include=*.php --include=*.js --include=*.json -i)",
+      "Bash(\"C:/laragon/bin/php/php8.4.4/php.exe\" artisan:*)",
+      "Read(//c/laragon/bin/**)",
+      "Read(//mnt/c/laragon/bin/**)",
+      "Bash(find /c /mnt/c -name php.exe -path */laragon/*)",
+      "Bash(command -v php)",
+      "Bash(\"/d/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe\" /c/ProgramData/ComposerSetup/bin/composer.phar require stripe/stripe-php)",
+      "Bash(/d/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe -r \"require ''vendor/autoload.php''; echo class_exists\\(''Stripe\\\\Stripe''\\) ? ''Stripe OK'' : ''Stripe NOT found'';\")",
+      "Bash(/d/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe /d/laragon/bin/composer/composer.phar remove stripe/stripe-php --no-interaction)",
+      "Bash(grep -rn \"stripe\\\\|Stripe\\\\|STRIPE\" /d/laragon/www/untesoroparamama/app /d/laragon/www/untesoroparamama/resources /d/laragon/www/untesoroparamama/routes /d/laragon/www/untesoroparamama/config --include=*.php --include=*.blade.php)",
+      "Bash(grep -rn \"wa\\\\.me\\\\|whatsapp_number\\\\|whatsappUrl\\\\|whatsapp_message\\\\|WhatsApp flotante\" /d/laragon/www/untesoroparamama/app /d/laragon/www/untesoroparamama/resources /d/laragon/www/untesoroparamama/routes --include=*.php --include=*.blade.php)"
     ]
   }
 }

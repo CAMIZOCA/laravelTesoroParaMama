@@ -35,9 +35,6 @@ class HomeController extends Controller
             ->orderBy('order')
             ->get();
 
-        $whatsappNumber = config('app.whatsapp_number', '593999829469');
-        $whatsappUrl = 'https://wa.me/' . $whatsappNumber . '?text=' . urlencode('Hola! Me interesa conocer más sobre los kits de joyería de leche materna. ¿Podría darme información?');
-
         $defaults = PageContent::defaults();
         $saved    = PageContent::all_settings();
         $c        = array_merge($defaults, $saved);
@@ -46,7 +43,6 @@ class HomeController extends Controller
             'categories',
             'featuredProducts',
             'galleryItems',
-            'whatsappUrl',
             'c'
         ));
     }

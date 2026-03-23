@@ -17,6 +17,9 @@ return [
 
     'whatsapp_number' => env('WHATSAPP_NUMBER', '593999829469'),
 
+    'instagram_url' => env('INSTAGRAM_URL', ''),
+    'facebook_url'  => env('FACEBOOK_URL', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -28,7 +28,31 @@
 
             <!-- Navigation -->
             <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-                <p class="text-xs uppercase tracking-widest text-cream-200 opacity-50 px-3 mb-3">Contenido</p>
+
+                {{-- Dashboard --}}
+                <a href="{{ route('admin.dashboard') }}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-cream-100 hover:bg-olive-800 hover:text-white transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-olive-800 text-white' : '' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Dashboard
+                </a>
+
+                <div class="pt-3 pb-1">
+                    <p class="text-xs uppercase tracking-widest text-cream-200 opacity-50 px-3 mb-2">Tienda</p>
+                </div>
+
+                <a href="{{ route('admin.orders.index') }}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-cream-100 hover:bg-olive-800 hover:text-white transition-colors {{ request()->routeIs('admin.orders*') ? 'bg-olive-800 text-white' : '' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    Pedidos
+                    @php $pendingCount = \App\Models\Order::where('status','pending')->count(); @endphp
+                    @if($pendingCount > 0)
+                        <span class="ml-auto bg-gold-400 text-olive-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">{{ $pendingCount }}</span>
+                    @endif
+                </a>
 
                 <a href="{{ route('admin.products.index') }}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-cream-100 hover:bg-olive-800 hover:text-white transition-colors {{ request()->routeIs('admin.products*') ? 'bg-olive-800 text-white' : '' }}">
@@ -46,6 +70,10 @@
                     Categorías
                 </a>
 
+                <div class="pt-3 pb-1">
+                    <p class="text-xs uppercase tracking-widest text-cream-200 opacity-50 px-3 mb-2">Sitio web</p>
+                </div>
+
                 <a href="{{ route('admin.gallery.index') }}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-cream-100 hover:bg-olive-800 hover:text-white transition-colors {{ request()->routeIs('admin.gallery*') ? 'bg-olive-800 text-white' : '' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,6 +88,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                     </svg>
                     Contenido
+                </a>
+
+                <a href="{{ route('admin.theme.index') }}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-cream-100 hover:bg-olive-800 hover:text-white transition-colors {{ request()->routeIs('admin.theme*') ? 'bg-olive-800 text-white' : '' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                    </svg>
+                    Colores / Tema
                 </a>
 
                 <a href="{{ route('admin.seo.index') }}"
