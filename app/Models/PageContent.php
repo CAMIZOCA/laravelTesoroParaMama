@@ -119,6 +119,71 @@ class PageContent extends Model
             'instr_closing_title'    => '¡Tu joya está lista!',
             'instr_closing_text'     => 'Comparte una foto de tu creación con nosotros por WhatsApp o Instagram. Nos encantaría celebrar este momento contigo. Si tienes alguna duda puedes escribirnos, con mucho gusto te ayudaremos.',
             'instr_closing_btn_text' => 'Compartir mi joya por WhatsApp',
+
+            // ── Trust Bar ───────────────────────────────────────────────────
+            'trust_stat_1_number' => '500+',
+            'trust_stat_1_label'  => 'Mamás felices',
+            'trust_stat_2_number' => '100%',
+            'trust_stat_2_label'  => 'Artesanal',
+            'trust_stat_3_number' => 'DIY guiado',
+            'trust_stat_3_label'  => 'Con instrucciones incluidas',
+            'trust_stat_4_number' => 'Única',
+            'trust_stat_4_label'  => 'Personalizada para ti',
+
+            // ── Proceso de compra ───────────────────────────────────────────
+            'proceso_label'        => 'Cómo funciona',
+            'proceso_title'        => 'Tan simple como amar',
+            'proceso_description'  => 'En 5 pasos sencillos transformarás tu leche materna en una joya que acompañará tu historia para siempre.',
+            'proceso_step_1_title' => 'Elige tu kit',
+            'proceso_step_1_desc'  => 'Explora nuestra colección y elige la joya que mejor refleje tu historia.',
+            'proceso_step_2_title' => 'Recibe tu kit',
+            'proceso_step_2_desc'  => 'Te llega todo lo que necesitas: molde, resina, preservante y guía paso a paso.',
+            'proceso_step_3_title' => 'Preserva tu leche',
+            'proceso_step_3_desc'  => 'Sigue las instrucciones para convertir tu leche materna en polvo preservado.',
+            'proceso_step_4_title' => 'Crea tu joya',
+            'proceso_step_4_desc'  => 'Mezcla, vierte y espera. El proceso es sorprendentemente sencillo y gratificante.',
+            'proceso_step_5_title' => 'Atesórala',
+            'proceso_step_5_desc'  => 'Tu pieza única, lista para acompañarte cada día y pasar de generación en generación.',
+
+            // ── Personalización ─────────────────────────────────────────────
+            'personaliz_label'  => 'Personalización',
+            'personaliz_title'  => 'Tu joya, a tu manera',
+            'personaliz_desc'   => 'Cada kit incluye elementos que puedes adaptar. Tu pieza será tan única como el vínculo que representa.',
+            'personaliz_item_1' => 'Color del dije (plateado / dorado)',
+            'personaliz_item_2' => 'Forma: redondo, corazón, gota',
+            'personaliz_item_3' => 'Tipo de cadena incluida',
+            'personaliz_item_4' => 'Tono de la leche (natural)',
+            'personaliz_item_5' => 'Añadir piedras decorativas',
+            'personaliz_item_6' => 'Grabado en la cadena',
+
+            // ── Testimonios ─────────────────────────────────────────────────
+            'testimonios_label'  => 'Lo que dicen las mamás',
+            'testimonios_title'  => 'Historias que nos inspiran',
+            'testimonio_1_name'  => 'María González',
+            'testimonio_1_loc'   => 'Quito, Ecuador',
+            'testimonio_1_text'  => 'Nunca pensé que hacer mi propia joya sería tan especial. Las instrucciones son clarísimas y el resultado es simplemente hermoso.',
+            'testimonio_2_name'  => 'Sofía Ramírez',
+            'testimonio_2_loc'   => 'Guayaquil, Ecuador',
+            'testimonio_2_text'  => 'El kit llegó perfecto, todo muy bien explicado. Mi collar es ahora mi pieza favorita. Vale cada centavo.',
+            'testimonio_3_name'  => 'Valentina Torres',
+            'testimonio_3_loc'   => 'Cuenca, Ecuador',
+            'testimonio_3_text'  => 'La calidad es increíble y el proceso fue mucho más fácil de lo que esperaba. Lo recomiendo a todas las mamás.',
+
+            // ── FAQ ─────────────────────────────────────────────────────────
+            'faq_label'  => 'Preguntas frecuentes',
+            'faq_title'  => 'Todo lo que necesitas saber',
+            'faq_1_q'    => '¿Cuánta leche necesito para hacer la joya?',
+            'faq_1_a'    => 'Solo necesitas 1 ml de leche materna. Es muy poca cantidad y el proceso de preservación está incluido en el kit.',
+            'faq_2_q'    => '¿Puedo usar leche congelada o solo fresca?',
+            'faq_2_a'    => 'Puedes usar leche fresca, refrigerada o descongelada. Lo importante es que esté en buen estado al momento de usarla.',
+            'faq_3_q'    => '¿Cuánto tiempo tarda en estar lista mi joya?',
+            'faq_3_a'    => 'El proceso completo toma entre 48 y 72 horas: 24h de preservación + 24h de curado de la resina.',
+            'faq_4_q'    => '¿Qué pasa si tengo dudas durante el proceso?',
+            'faq_4_a'    => 'Incluimos una guía completa con fotos y puedes escribirnos por WhatsApp en cualquier momento para acompañamiento personalizado.',
+            'faq_5_q'    => '¿Los materiales son seguros?',
+            'faq_5_a'    => 'Sí. Todos los materiales son de grado joyería, hipoalergénicos y seguros. El kit incluye guantes y mascarilla de protección.',
+            'faq_6_q'    => '¿La joya es resistente y duradera?',
+            'faq_6_a'    => 'Una vez curada, la resina es muy resistente. Recomendamos evitar el contacto prolongado con agua, perfumes y químicos para preservar el brillo.',
         ];
     }
 }

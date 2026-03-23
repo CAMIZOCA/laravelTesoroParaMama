@@ -56,7 +56,8 @@
       "Bash(/d/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe -r \"require ''vendor/autoload.php''; echo class_exists\\(''Stripe\\\\Stripe''\\) ? ''Stripe OK'' : ''Stripe NOT found'';\")",
       "Bash(/d/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe /d/laragon/bin/composer/composer.phar remove stripe/stripe-php --no-interaction)",
       "Bash(grep -rn \"stripe\\\\|Stripe\\\\|STRIPE\" /d/laragon/www/untesoroparamama/app /d/laragon/www/untesoroparamama/resources /d/laragon/www/untesoroparamama/routes /d/laragon/www/untesoroparamama/config --include=*.php --include=*.blade.php)",
-      "Bash(grep -rn \"wa\\\\.me\\\\|whatsapp_number\\\\|whatsappUrl\\\\|whatsapp_message\\\\|WhatsApp flotante\" /d/laragon/www/untesoroparamama/app /d/laragon/www/untesoroparamama/resources /d/laragon/www/untesoroparamama/routes --include=*.php --include=*.blade.php)"
+      "Bash(grep -rn \"wa\\\\.me\\\\|whatsapp_number\\\\|whatsappUrl\\\\|whatsapp_message\\\\|WhatsApp flotante\" /d/laragon/www/untesoroparamama/app /d/laragon/www/untesoroparamama/resources /d/laragon/www/untesoroparamama/routes --include=*.php --include=*.blade.php)",
+      "WebFetch(domain:tesorosdevida.es)"
     ]
   }
 }

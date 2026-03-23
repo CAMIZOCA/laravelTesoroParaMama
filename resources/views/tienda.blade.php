@@ -1,32 +1,48 @@
 @extends('layouts.public')
 
-@section('title', 'Tienda')
+@section('title', 'Tienda — Un Tesoro Para Mamá')
 @section('seo_title', 'Tienda — Un Tesoro Para Mamá')
-@section('seo_description', 'Kits DIY de joyería de leche materna. Crea tu propia joya desde casa.')
+@section('seo_description', 'Kits DIY de joyería de leche materna. Crea tu propia joya desde casa con todo incluido.')
 
 @section('content')
 
-{{-- Hero --}}
-<section class="pt-24 pb-10 bg-cream-100 text-center">
-    <div class="max-w-2xl mx-auto px-6">
-        <span class="section-label">Nuestra Tienda</span>
-        <h1 class="section-title mt-2 mb-4">Elige tu kit perfecto</h1>
-        <p class="text-olive-600 text-base">Kits completos para crear tu joya de leche materna desde casa.</p>
+{{-- Hero tienda --}}
+<section class="pt-28 pb-14 bg-gradient-to-b from-blush-50 to-cream-50 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-30"
+         style="background: radial-gradient(ellipse at 50% 0%, #F9E4C4 0%, transparent 60%)"></div>
+    <div class="relative z-10 max-w-2xl mx-auto px-6">
+        <div class="flex items-center gap-3 justify-center mb-4">
+            <div class="h-px w-6 bg-champagne-400"></div>
+            <span class="hero-eyebrow">Nuestra Tienda</span>
+            <div class="h-px w-6 bg-champagne-400"></div>
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl text-taupe-900 leading-tight mb-4">
+            Elige tu <em class="italic text-champagne-500">joya perfecta</em>
+        </h1>
+        <p class="text-taupe-400 text-sm leading-relaxed max-w-sm mx-auto">
+            Kits completos para crear tu joya de leche materna desde casa. Todo incluido.
+        </p>
     </div>
 </section>
 
-{{-- Category filter --}}
+{{-- Filtro de categorías --}}
 @if($categories->count() > 1)
-<section class="bg-white border-b border-cream-200 sticky top-0 z-30">
+<section class="bg-white border-b border-cream-200 sticky top-0 z-30 shadow-sm">
     <div class="max-w-6xl mx-auto px-6">
-        <div class="flex gap-1 overflow-x-auto py-3 scrollbar-hide">
+        <div class="flex gap-2 overflow-x-auto py-3.5 scrollbar-hide">
             <a href="{{ route('tienda') }}"
-               class="flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors {{ !request('categoria') ? 'bg-olive-900 text-white' : 'text-olive-700 hover:bg-cream-100' }}">
+               class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200
+                      {{ !request('categoria')
+                           ? 'bg-taupe-800 text-white shadow-sm'
+                           : 'text-taupe-500 hover:text-taupe-800 hover:bg-cream-100' }}">
                 Todos
             </a>
             @foreach($categories as $cat)
             <a href="{{ route('tienda', ['categoria' => $cat->slug]) }}"
-               class="flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors {{ request('categoria') === $cat->slug ? 'bg-olive-900 text-white' : 'text-olive-700 hover:bg-cream-100' }}">
+               class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200
+                      {{ request('categoria') === $cat->slug
+                           ? 'bg-taupe-800 text-white shadow-sm'
+                           : 'text-taupe-500 hover:text-taupe-800 hover:bg-cream-100' }}">
                 {{ $cat->name }}
             </a>
             @endforeach
@@ -35,55 +51,88 @@
 </section>
 @endif
 
-{{-- Product Grid --}}
-<section class="py-12 bg-cream-50">
+{{-- Grid de productos --}}
+<section class="py-14 bg-cream-50">
     <div class="max-w-6xl mx-auto px-6">
         @if($products->isEmpty())
-            <p class="text-center text-olive-500 py-16">No hay productos disponibles en esta categoría.</p>
+            <div class="text-center py-20">
+                <svg class="w-12 h-12 text-taupe-200 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+                <p class="text-taupe-400 font-serif text-lg">No hay productos en esta categoría.</p>
+                <a href="{{ route('tienda') }}" class="btn-ghost mt-4 inline-flex">Ver todos los kits →</a>
+            </div>
         @else
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($products as $product)
-                <div class="card-feature flex flex-col group">
-                    {{-- Image --}}
-                    <a href="{{ route('producto.show', $product->slug) }}" class="block overflow-hidden rounded-xl mb-4 aspect-square bg-cream-100">
+                <div class="product-card-premium group">
+
+                    {{-- Imagen --}}
+                    <a href="{{ route('producto.show', $product->slug) }}" class="product-card-image block aspect-square">
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </a>
-
-                    {{-- Badge --}}
-                    @if($product->badge)
-                        <span class="inline-block self-start bg-gold-100 text-gold-800 text-xs font-semibold px-3 py-1 rounded-full mb-2">{{ $product->badge }}</span>
-                    @endif
-
-                    {{-- Info --}}
-                    <a href="{{ route('producto.show', $product->slug) }}" class="font-serif text-lg font-semibold text-olive-900 hover:text-gold-600 transition-colors mb-1">
-                        {{ $product->name }}
-                    </a>
-                    @if($product->short_description)
-                        <p class="text-sm text-olive-600 mb-3 flex-1">{{ $product->short_description }}</p>
-                    @endif
-
-                    {{-- Price --}}
-                    <div class="flex items-baseline gap-2 mb-4">
-                        @if($product->hasVariants())
-                            <span class="text-sm text-olive-500">Desde</span>
-                            <span class="text-xl font-bold text-olive-900">
-                                ${{ number_format(collect($product->variants)->min('price'), 2) }}
-                            </span>
-                        @else
-                            <span class="text-xl font-bold text-olive-900">${{ number_format($product->price, 2) }}</span>
-                            @if($product->hasDiscount())
-                                <span class="text-sm text-gray-400 line-through">${{ number_format($product->original_price, 2) }}</span>
-                                <span class="text-xs font-semibold text-red-500">-{{ $product->discount_percent }}%</span>
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        {{-- Badges --}}
+                        @if($product->badge || $product->hasDiscount())
+                        <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+                            @if($product->badge)
+                                <span class="badge-popular">{{ $product->badge }}</span>
                             @endif
+                            @if($product->hasDiscount())
+                                <span class="badge-sale">-{{ $product->discount_percent }}%</span>
+                            @endif
+                        </div>
                         @endif
-                    </div>
-
-                    {{-- CTA --}}
-                    <a href="{{ route('producto.show', $product->slug) }}"
-                       class="w-full text-center btn-primary-sm justify-center !rounded-xl !bg-olive-900 !text-white hover:!bg-olive-800">
-                        Ver producto
                     </a>
+
+                    {{-- Contenido --}}
+                    <div class="product-card-body">
+                        @if($product->category)
+                            <p class="section-eyebrow mb-1.5">{{ $product->category->name }}</p>
+                        @endif
+
+                        <a href="{{ route('producto.show', $product->slug) }}"
+                           class="font-serif text-lg text-taupe-900 hover:text-champagne-500
+                                  transition-colors duration-200 block mb-2 leading-snug">
+                            {{ $product->name }}
+                        </a>
+
+                        @if($product->short_description)
+                            <p class="text-sm text-taupe-400 leading-relaxed mb-4 line-clamp-2 flex-1">
+                                {{ $product->short_description }}
+                            </p>
+                        @endif
+
+                        {{-- Precio --}}
+                        <div class="flex items-baseline gap-2 mb-4 mt-auto">
+                            @if($product->hasVariants())
+                                <span class="text-xs text-taupe-400">Desde</span>
+                                <span class="font-serif text-xl text-taupe-900 font-semibold">
+                                    ${{ number_format(collect($product->variants)->min('price'), 2) }}
+                                </span>
+                            @else
+                                <span class="font-serif text-xl text-taupe-900 font-semibold">
+                                    ${{ number_format($product->price, 2) }}
+                                </span>
+                                @if($product->hasDiscount())
+                                    <span class="text-xs text-taupe-300 line-through">
+                                        ${{ number_format($product->original_price, 2) }}
+                                    </span>
+                                @endif
+                            @endif
+                        </div>
+
+                        {{-- CTA --}}
+                        <a href="{{ route('producto.show', $product->slug) }}"
+                           class="w-full text-center inline-flex items-center justify-center gap-2
+                                  bg-taupe-800 hover:bg-taupe-900 text-white text-sm font-medium
+                                  py-3 px-5 rounded-xl transition-all duration-200 hover:shadow-md">
+                            Ver producto
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
                 @endforeach
             </div>
