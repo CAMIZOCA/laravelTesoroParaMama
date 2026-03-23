@@ -120,7 +120,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la sección</label>
                     @if($content['historia_image'])
                         <div class="mb-3">
-                            <img src="{{ route('media.show', ['path' => ltrim($content['historia_image'], '/')]) }}"
+                            <img src="{{ asset('storage/' . ltrim($content['historia_image'], '/')) }}"
                                  alt="Historia" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
                         </div>
                     @endif
@@ -210,7 +210,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la sección</label>
                     @if($content['tangible_image'])
                         <div class="mb-3">
-                            <img src="{{ route('media.show', ['path' => ltrim($content['tangible_image'], '/')]) }}"
+                            <img src="{{ asset('storage/' . ltrim($content['tangible_image'], '/')) }}"
                                  alt="Tu Joya" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
                         </div>
                     @endif
@@ -418,7 +418,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen ilustrativa (opcional)</label>
                     @if($content['instr_step1_image'])
                     <div class="mb-3">
-                        <img src="{{ route('media.show', ['path' => ltrim($content['instr_step1_image'], '/')]) }}" alt="Paso 1" class="h-28 rounded-lg object-cover">
+                        <img src="{{ asset('storage/' . ltrim($content['instr_step1_image'], '/')) }}" alt="Paso 1" class="h-28 rounded-lg object-cover">
                         <p class="text-xs text-gray-400 mt-1">Imagen actual. Sube otra para reemplazarla.</p>
                     </div>
                     @endif
@@ -461,7 +461,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen ilustrativa (opcional)</label>
                     @if($content['instr_step2_image'])
                     <div class="mb-3">
-                        <img src="{{ route('media.show', ['path' => ltrim($content['instr_step2_image'], '/')]) }}" alt="Paso 2" class="h-28 rounded-lg object-cover">
+                        <img src="{{ asset('storage/' . ltrim($content['instr_step2_image'], '/')) }}" alt="Paso 2" class="h-28 rounded-lg object-cover">
                         <p class="text-xs text-gray-400 mt-1">Imagen actual. Sube otra para reemplazarla.</p>
                     </div>
                     @endif

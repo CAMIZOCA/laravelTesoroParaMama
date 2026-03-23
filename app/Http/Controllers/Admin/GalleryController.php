@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\GalleryItem;
+use App\Support\StoresUniqueUploads;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class GalleryController extends Controller
 {
+    use StoresUniqueUploads;
+
     public function index(): View
     {
         $items = GalleryItem::orderBy('order')->paginate(20);
@@ -31,7 +34,7 @@ class GalleryController extends Controller
             'order' => 'integer|min:0',
         ]);
 
-        $path = $request->file('image')->store('gallery', 'public');
+        $path = $this->storeUniquePublicFile($request->file('image'), 'gallery');
 
         GalleryItem::create([
             'image' => $path,
@@ -68,7 +71,7 @@ class GalleryController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('gallery', 'public');
+            $data['image'] = $this->storeUniquePublicFile($request->file('image'), 'gallery');
         }
 
         $gallery->update($data);

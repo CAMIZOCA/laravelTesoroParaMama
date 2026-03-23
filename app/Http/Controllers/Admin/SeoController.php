@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SeoSetting;
+use App\Support\StoresUniqueUploads;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SeoController extends Controller
 {
+    use StoresUniqueUploads;
+
     public function index(): View
     {
         $defaults = SeoSetting::defaults();
@@ -45,8 +48,8 @@ class SeoController extends Controller
 
         // Handle OG image upload
         if ($request->hasFile('og_image')) {
-            $path = $request->file('og_image')->store('seo', 'public');
-            $validated['og_image'] = route('media.show', ['path' => ltrim($path, '/')]);
+            $path = $this->storeUniquePublicFile($request->file('og_image'), 'seo');
+            $validated['og_image'] = asset('storage/' . ltrim($path, '/'));
         } else {
             unset($validated['og_image']); // keep existing if no new file
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Support\StoresUniqueUploads;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,6 +13,8 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+    use StoresUniqueUploads;
+
     public function index(): View
     {
         $products = Product::with('category')->orderBy('order')->orderBy('name')->paginate(15);
@@ -48,7 +51,7 @@ class ProductController extends Controller
         $validated['stock'] = $request->filled('stock') ? (int) $request->stock : null;
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $validated['image'] = $this->storeUniquePublicFile($request->file('image'), 'products');
         }
 
         if ($request->filled('includes')) {
@@ -105,7 +108,7 @@ class ProductController extends Controller
         $validated['stock'] = $request->filled('stock') ? (int) $request->stock : null;
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $validated['image'] = $this->storeUniquePublicFile($request->file('image'), 'products');
         }
 
         if ($request->filled('includes')) {

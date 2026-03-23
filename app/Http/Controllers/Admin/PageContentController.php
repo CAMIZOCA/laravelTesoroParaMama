@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PageContent;
+use App\Support\StoresUniqueUploads;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PageContentController extends Controller
 {
+    use StoresUniqueUploads;
+
     public function index(): View
     {
         $defaults = PageContent::defaults();
@@ -33,7 +36,7 @@ class PageContentController extends Controller
         // Handle image uploads
         foreach (['historia_image', 'tangible_image', 'instr_step1_image', 'instr_step2_image'] as $field) {
             if ($request->hasFile($field)) {
-                $data[$field] = $request->file($field)->store('content', 'public');
+                $data[$field] = $this->storeUniquePublicFile($request->file($field), 'content');
             }
         }
 
