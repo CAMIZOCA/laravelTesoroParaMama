@@ -12,6 +12,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstructionsController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RobotsController;
@@ -24,6 +25,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/instrucciones', [InstructionsController::class, 'index'])->name('instrucciones');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/robots.txt', [RobotsController::class, 'index'])->name('robots');
+Route::get('/media/{path}', [MediaController::class, 'show'])
+    ->where('path', '.*')
+    ->name('media.show');
 
 // ── Store ──────────────────────────────────────────────────────────────────────
 Route::get('/tienda', [StoreController::class, 'index'])->name('tienda');

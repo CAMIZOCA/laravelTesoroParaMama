@@ -45,7 +45,8 @@ class SeoController extends Controller
 
         // Handle OG image upload
         if ($request->hasFile('og_image')) {
-            $validated['og_image'] = asset('storage/' . $request->file('og_image')->store('seo', 'public'));
+            $path = $request->file('og_image')->store('seo', 'public');
+            $validated['og_image'] = route('media.show', ['path' => ltrim($path, '/')]);
         } else {
             unset($validated['og_image']); // keep existing if no new file
         }
