@@ -9,6 +9,9 @@ class Product extends Model
 {
     protected $fillable = [
         'category_id',
+        'code',
+        'material',
+        'shape',
         'name',
         'slug',
         'description',
@@ -71,5 +74,23 @@ class Product extends Model
     {
         if (!$this->hasDiscount()) return 0;
         return (int) round((($this->original_price - $this->price) / $this->original_price) * 100);
+    }
+
+    public function materialLabel(): string
+    {
+        return match($this->material) {
+            'gold'   => 'Dorado',
+            'silver' => 'Plateado',
+            default  => '',
+        };
+    }
+
+    public function shapeLabel(): string
+    {
+        return match($this->shape) {
+            'heart' => 'Corazón',
+            'drop'  => 'Gota',
+            default => '',
+        };
     }
 }

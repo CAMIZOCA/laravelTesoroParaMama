@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\GalleryItem;
 use App\Models\PageContent;
 use App\Models\Product;
+use App\Models\Testimonial;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -35,6 +36,8 @@ class HomeController extends Controller
             ->orderBy('order')
             ->get();
 
+        $testimonials = Testimonial::visible()->ordered()->limit(6)->get();
+
         $defaults = PageContent::defaults();
         $saved    = PageContent::all_settings();
         $c        = array_merge($defaults, $saved);
@@ -43,6 +46,7 @@ class HomeController extends Controller
             'categories',
             'featuredProducts',
             'galleryItems',
+            'testimonials',
             'c'
         ));
     }

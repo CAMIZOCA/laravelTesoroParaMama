@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
@@ -10,13 +11,18 @@ class Order extends Model
     protected $fillable = [
         'order_number',
         'customer_name',
+        'customer_lastname',
         'customer_email',
         'customer_phone',
+        'customer_whatsapp',
         'customer_country',
         'customer_city',
         'customer_address',
         'customer_notes',
+        'ambassador_code',
+        'ambassador_id',
         'subtotal',
+        'shipping_cost',
         'total',
         'payphone_transaction_id',
         'payphone_client_transaction_id',
@@ -28,15 +34,21 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'subtotal'  => 'decimal:2',
-        'total'     => 'decimal:2',
-        'paid_at'   => 'datetime',
-        'shipped_at' => 'datetime',
+        'subtotal'      => 'decimal:2',
+        'shipping_cost' => 'decimal:2',
+        'total'         => 'decimal:2',
+        'paid_at'       => 'datetime',
+        'shipped_at'    => 'datetime',
     ];
 
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function ambassador(): BelongsTo
+    {
+        return $this->belongsTo(Ambassador::class);
     }
 
     public static function generateOrderNumber(): string

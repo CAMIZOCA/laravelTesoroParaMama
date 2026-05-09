@@ -1,47 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
-    body {
-        @apply bg-cream-50 text-taupe-800 font-sans;
-    }
+    body { @apply bg-white text-taupe-900 font-sans antialiased; }
 
-    h1, h2, h3, h4, h5, h6 {
-        @apply font-serif;
-    }
+    h1, h2, h3, h4, h5, h6 { @apply font-serif; }
 }
 
 @layer components {
 
     /* ── Botones principales ─────────────────────────────────────── */
     .btn-primary {
-        @apply inline-flex items-center gap-2 bg-champagne-400 hover:bg-champagne-500
-               text-taupe-900 font-semibold px-8 py-4 rounded-full
+        @apply inline-flex items-center gap-2 bg-champagne-500 hover:bg-champagne-600
+               text-white font-semibold px-8 py-4 rounded-full
                transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl;
     }
 
     .btn-primary-sm {
-        @apply inline-flex items-center gap-2 bg-champagne-400 hover:bg-champagne-500
-               text-taupe-900 font-medium px-6 py-3 rounded-full
+        @apply inline-flex items-center gap-2 bg-champagne-500 hover:bg-champagne-600
+               text-white font-medium px-6 py-3 rounded-full
                transition-all duration-300 hover:scale-105 shadow-md text-sm;
     }
 
     .btn-outline {
-        @apply inline-flex items-center gap-2 border border-taupe-300 hover:border-taupe-500
+        @apply inline-flex items-center gap-2 border border-taupe-300 hover:border-taupe-600
                text-taupe-700 hover:text-taupe-900 font-medium px-8 py-4 rounded-full
                transition-all duration-300 hover:bg-taupe-50 text-sm;
     }
 
     .btn-ghost {
-        @apply inline-flex items-center gap-2 text-champagne-500 hover:text-champagne-400
+        @apply inline-flex items-center gap-2 text-champagne-500 hover:text-champagne-600
                font-medium transition-colors duration-200 text-sm;
+    }
+
+    .btn-whatsapp {
+        @apply inline-flex items-center gap-2 bg-green-500 hover:bg-green-600
+               text-white font-semibold px-6 py-3 rounded-full
+               transition-all duration-300 hover:scale-105 shadow-md text-sm;
     }
 
     /* ── Tipografía editorial ───────────────────────────────────── */
@@ -76,32 +76,24 @@
                text-champagne-500 flex-shrink-0;
     }
 
-    .trust-text {
-        @apply flex flex-col;
-    }
+    .trust-text { @apply flex flex-col; }
 
     .trust-number {
         @apply font-serif text-lg text-taupe-800 font-semibold leading-tight;
     }
 
-    .trust-label {
-        @apply text-xs text-taupe-400 leading-tight;
-    }
+    .trust-label { @apply text-xs text-taupe-400 leading-tight; }
 
     /* ── Tarjetas de producto premium ───────────────────────────── */
     .product-card-premium {
         @apply bg-white rounded-2xl overflow-hidden shadow-sm
-               hover:shadow-xl transition-all duration-500 border border-cream-200
+               hover:shadow-xl transition-all duration-500 border border-cream-300
                flex flex-col;
     }
 
-    .product-card-image {
-        @apply relative overflow-hidden bg-cream-50;
-    }
+    .product-card-image { @apply relative overflow-hidden bg-cream-100; }
 
-    .product-card-body {
-        @apply p-5 flex flex-col flex-1;
-    }
+    .product-card-body { @apply p-5 flex flex-col flex-1; }
 
     /* ── Badges ─────────────────────────────────────────────────── */
     .badge-premium {
@@ -109,17 +101,9 @@
                text-xs font-medium tracking-wide;
     }
 
-    .badge-popular {
-        @apply badge-premium bg-champagne-200 text-taupe-700;
-    }
-
-    .badge-new {
-        @apply badge-premium bg-blush-100 text-blush-500;
-    }
-
-    .badge-sale {
-        @apply badge-premium bg-red-50 text-red-500;
-    }
+    .badge-popular { @apply badge-premium bg-champagne-100 text-champagne-600; }
+    .badge-new     { @apply badge-premium bg-taupe-100 text-taupe-600; }
+    .badge-sale    { @apply badge-premium bg-champagne-100 text-champagne-600; }
 
     /* ── Cards de feature ────────────────────────────────────────── */
     .card-feature {
@@ -129,51 +113,43 @@
 
     /* ── Pasos del proceso ──────────────────────────────────────── */
     .process-step-number {
-        @apply w-11 h-11 rounded-full bg-champagne-200 text-taupe-700
-               flex items-center justify-center font-serif text-lg font-semibold
-               flex-shrink-0 ring-4 ring-champagne-100;
+        @apply w-12 h-12 rounded-full bg-champagne-500 text-white
+               flex items-center justify-center font-serif text-lg font-bold
+               flex-shrink-0 shadow-md;
     }
 
     .process-step-line {
-        @apply hidden lg:block flex-1 h-px bg-champagne-200 mx-4 mt-[-1.375rem];
+        @apply hidden lg:block flex-1 h-px bg-taupe-200 mx-4 mt-[-1.5rem];
     }
 
     /* ── Testimonios ────────────────────────────────────────────── */
     .testimonial-card {
-        @apply bg-white rounded-3xl p-8 shadow-sm border border-cream-100
+        @apply bg-white rounded-3xl p-8 shadow-sm border border-cream-300
                hover:shadow-md transition-shadow duration-300 flex flex-col gap-5;
     }
 
-    .testimonial-stars {
-        @apply flex gap-0.5 text-champagne-400;
-    }
+    .testimonial-stars { @apply flex gap-0.5 text-champagne-500; }
 
     .testimonial-quote {
         @apply font-serif text-base text-taupe-700 leading-relaxed italic flex-1;
     }
 
-    .testimonial-author {
-        @apply flex items-center gap-3;
-    }
+    .testimonial-author { @apply flex items-center gap-3; }
 
     .testimonial-avatar {
-        @apply w-10 h-10 rounded-full bg-champagne-200 flex items-center justify-center
-               font-serif text-taupe-700 font-semibold text-sm flex-shrink-0;
+        @apply w-10 h-10 rounded-full bg-champagne-100 flex items-center justify-center
+               font-serif text-champagne-600 font-semibold text-sm flex-shrink-0;
     }
 
     /* ── FAQ Acordeón ───────────────────────────────────────────── */
-    .faq-item {
-        @apply border-b border-cream-200;
-    }
+    .faq-item { @apply border-b border-cream-300; }
 
     .faq-question {
         @apply font-serif text-base text-taupe-800 font-medium cursor-pointer
                flex items-center justify-between gap-4 w-full text-left py-5;
     }
 
-    .faq-answer {
-        @apply text-sm text-taupe-500 leading-relaxed pb-5 pr-8;
-    }
+    .faq-answer { @apply text-sm text-taupe-500 leading-relaxed pb-5 pr-8; }
 
     /* ── Tarjetas de colección ──────────────────────────────────── */
     .collection-card {
@@ -188,16 +164,16 @@
 
     /* ── Divisor decorativo ──────────────────────────────────────── */
     .ornament {
-        @apply flex items-center justify-center gap-3 text-champagne-300 my-1;
+        @apply flex items-center justify-center gap-3 text-taupe-300 my-1;
     }
 
     .ornament::before,
     .ornament::after {
         content: '';
-        @apply flex-1 h-px bg-cream-200;
+        @apply flex-1 h-px bg-cream-300;
     }
 
-    /* ── Admin components (sin cambios) ─────────────────────────── */
+    /* ── Admin components ───────────────────────────────────────── */
     .admin-card {
         @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
     }
@@ -206,23 +182,16 @@
         @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200;
     }
 
-    .admin-btn-primary {
-        @apply admin-btn bg-olive-800 text-white hover:bg-olive-900;
-    }
-
-    .admin-btn-secondary {
-        @apply admin-btn bg-gray-100 text-gray-700 hover:bg-gray-200;
-    }
-
-    .admin-btn-danger {
-        @apply admin-btn bg-red-50 text-red-600 hover:bg-red-100;
-    }
+    .admin-btn-primary   { @apply admin-btn bg-taupe-900 text-white hover:bg-taupe-800; }
+    .admin-btn-secondary { @apply admin-btn bg-gray-100 text-gray-700 hover:bg-gray-200; }
+    .admin-btn-danger    { @apply admin-btn bg-red-50 text-red-600 hover:bg-red-100; }
+    .admin-btn-success   { @apply admin-btn bg-green-50 text-green-700 hover:bg-green-100; }
 
     .form-input {
-        @apply w-full rounded-lg border-gray-200 shadow-sm focus:border-champagne-400 focus:ring-champagne-400 text-taupe-800;
+        @apply w-full rounded-lg border-taupe-200 shadow-sm
+               focus:border-champagne-500 focus:ring-champagne-500
+               text-taupe-800;
     }
 
-    .form-label {
-        @apply block text-sm font-medium text-taupe-700 mb-1;
-    }
+    .form-label { @apply block text-sm font-medium text-taupe-700 mb-1; }
 }

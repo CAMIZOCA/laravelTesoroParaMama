@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AmbassadorSaleNotification;
 use App\Mail\NewOrderNotification;
 use App\Mail\OrderConfirmation;
+use App\Models\Ambassador;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\JsonResponse;
@@ -49,8 +51,11 @@ class PaymentController extends Controller
             return redirect()->route('checkout');
         }
 
-        $total       = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
-        $amountCents = (int) round($total * 100);
+        $subtotal     = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $discount     = (float) ($customer['discount']      ?? 0);
+        $shipping     = (float) ($customer['shipping_cost'] ?? 0);
+        $total        = max(0, $subtotal - $discount + $shipping);
+        $amountCents  = (int) round($total * 100);
         $clientTxId  = (string) Str::uuid();
 
         // Store in session for later verification
@@ -140,23 +145,31 @@ class PaymentController extends Controller
             return redirect()->route('tienda');
         }
 
-        $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $subtotal     = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $discount     = (float) ($customer['discount']      ?? 0);
+        $shippingCost = (float) ($customer['shipping_cost'] ?? 0);
+        $total        = max(0, $subtotal - $discount + $shippingCost);
 
         $order = Order::create([
-            'order_number'                 => Order::generateOrderNumber(),
-            'customer_name'                => $customer['nombre'],
-            'customer_email'               => $customer['email'],
-            'customer_phone'               => $customer['telefono'],
-            'customer_country'             => $customer['pais'],
-            'customer_city'                => $customer['ciudad'],
-            'customer_address'             => $customer['direccion'],
-            'customer_notes'               => $customer['notas'] ?? null,
-            'subtotal'                     => $subtotal,
-            'total'                        => $subtotal,
-            'payphone_transaction_id'      => $transactionId,
+            'order_number'                   => Order::generateOrderNumber(),
+            'customer_name'                  => $customer['nombre'],
+            'customer_lastname'              => $customer['apellido'] ?? null,
+            'customer_email'                 => $customer['email'],
+            'customer_phone'                 => $customer['telefono'],
+            'customer_whatsapp'              => $customer['whatsapp'] ?? null,
+            'customer_country'               => $customer['pais'],
+            'customer_city'                  => $customer['ciudad'],
+            'customer_address'               => $customer['direccion'],
+            'customer_notes'                 => $customer['notas'] ?? null,
+            'ambassador_code'                => $customer['ambassador_code'] ?? null,
+            'ambassador_id'                  => $customer['ambassador_id'] ?? null,
+            'subtotal'                       => $subtotal,
+            'shipping_cost'                  => $shippingCost,
+            'total'                          => $total,
+            'payphone_transaction_id'        => $transactionId,
             'payphone_client_transaction_id' => $clientTxId,
-            'status'                       => 'paid',
-            'paid_at'                      => now(),
+            'status'                         => 'paid',
+            'paid_at'                        => now(),
         ]);
 
         foreach ($cart as $item) {
@@ -177,6 +190,13 @@ class PaymentController extends Controller
         try {
             Mail::to($customer['email'])->queue(new OrderConfirmation($order));
             Mail::to($adminEmail)->queue(new NewOrderNotification($order));
+
+            if (!empty($customer['ambassador_code']) && !empty($customer['ambassador_id'])) {
+                $ambassador = Ambassador::find($customer['ambassador_id']);
+                if ($ambassador && $ambassador->email) {
+                    Mail::to($ambassador->email)->queue(new AmbassadorSaleNotification($order, $ambassador));
+                }
+            }
         } catch (\Exception $e) {
             // Mail failure must not block success page
         }

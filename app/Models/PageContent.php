@@ -169,6 +169,30 @@ class PageContent extends Model
             'testimonio_3_loc'   => 'Cuenca, Ecuador',
             'testimonio_3_text'  => 'La calidad es increíble y el proceso fue mucho más fácil de lo que esperaba. Lo recomiendo a todas las mamás.',
 
+            // ── Emotional section ────────────────────────────────────────────
+            'emotional_label'  => 'Tu leche es única',
+            'emotional_title'  => '"Tu leche materna es el regalo más valioso que puedes dar."',
+            'emotional_text'   => 'Cada gota está compuesta de amor, perseverancia y el vínculo irrompible entre tú y tu bebé. Conviértela en algo eterno.',
+
+            // ── Cómo funciona (3 pasos) ──────────────────────────────────────
+            'how_step_1_title' => 'Elige tu kit',
+            'how_step_1_text'  => 'Selecciona el dije que más te guste: corazón o gota, dorado o plateado.',
+            'how_step_2_title' => 'Recíbelo y crea',
+            'how_step_2_text'  => 'Sigue las instrucciones incluidas. Solo necesitas 1 ml de tu leche materna.',
+            'how_step_3_title' => 'Atesora para siempre',
+            'how_step_3_text'  => 'Una joya única, hecha por ti, con el amor que defines tu maternidad.',
+
+            // ── WhatsApp ─────────────────────────────────────────────────────
+            'whatsapp_number'  => '',
+
+            // ── Shipping costs ───────────────────────────────────────────────
+            'shipping_cost_quito'     => '0',
+            'shipping_cost_provinces' => '5',
+            'shipping_quito'          => 'Entrega en Quito: gratis, en 1-2 días hábiles.',
+            'shipping_provinces'      => 'Envío a provincias: $5, en 3-5 días hábiles.',
+            'shipping_galapagos'      => 'Envío a Galápagos: consúltanos por WhatsApp.',
+            'shipping_international'  => 'Envíos internacionales disponibles. Consúltanos por WhatsApp.',
+
             // ── FAQ ─────────────────────────────────────────────────────────
             'faq_label'  => 'Preguntas frecuentes',
             'faq_title'  => 'Todo lo que necesitas saber',

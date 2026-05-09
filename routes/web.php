@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AmbassadorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageContentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SeoController;
+use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -39,6 +42,8 @@ Route::get('/carrito/count', [CartController::class, 'count'])->name('carrito.co
 // ── Checkout ───────────────────────────────────────────────────────────────────
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/checkout/validate-code', [CheckoutController::class, 'validateCode'])->name('checkout.validateCode');
+Route::get('/checkout/shipping-cost', [CheckoutController::class, 'shippingCost'])->name('checkout.shippingCost');
 
 // ── Payment (PayPhone) ─────────────────────────────────────────────────────────
 Route::get('/pago', [PaymentController::class, 'index'])->name('pago.index');
@@ -54,13 +59,26 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::resource('categories', CategoryController::class);
     Route::resource('gallery', GalleryController::class);
     Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
+    Route::resource('testimonials', TestimonialController::class)->except(['show']);
 
+    // Ambassadors
+    Route::resource('ambassadors', AmbassadorController::class)->except(['show']);
+    Route::post('ambassadors/{ambassador}/toggle', [AmbassadorController::class, 'toggle'])->name('ambassadors.toggle');
+    Route::get('ambassadors/{ambassador}/report', [AmbassadorController::class, 'report'])->name('ambassadors.report');
+
+    // SEO
     Route::get('seo', [SeoController::class, 'index'])->name('seo.index');
     Route::post('seo', [SeoController::class, 'update'])->name('seo.update');
 
+    // Content
     Route::get('content', [PageContentController::class, 'index'])->name('content.index');
     Route::post('content', [PageContentController::class, 'update'])->name('content.update');
 
+    // Shipping & WhatsApp config
+    Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
+    Route::post('shipping', [ShippingController::class, 'update'])->name('shipping.update');
+
+    // Theme
     Route::get('theme', [ThemeController::class, 'index'])->name('theme.index');
     Route::post('theme', [ThemeController::class, 'update'])->name('theme.update');
     Route::post('theme/palette', [ThemeController::class, 'applyPalette'])->name('theme.palette');

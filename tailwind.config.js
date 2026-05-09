@@ -12,60 +12,67 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                serif: ['Marcellus', ...defaultTheme.fontFamily.serif],
-                sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
-                display: ['Marcellus', ...defaultTheme.fontFamily.serif],
+                serif: ['Playfair Display', ...defaultTheme.fontFamily.serif],
+                sans: ['Lato', ...defaultTheme.fontFamily.sans],
+                display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
             },
             colors: {
-                cream: {
-                    50: '#fcfcfd',
-                    100: '#f6f7fa',
-                    200: '#ebeef4',
-                    300: '#d9dfeb',
-                },
-                gold: {
-                    50: '#fff5f8',
-                    100: '#fdeaf0',
-                    200: '#f8d3df',
-                    300: '#efb8cb',
-                    400: '#e39ab3',
-                    500: '#cf7897',
-                    600: '#b45f7f',
-                    800: '#7b4159',
-                },
-                olive: {
-                    500: '#5f6678',
-                    600: '#4b5265',
-                    700: '#383f52',
-                    800: '#272d3e',
-                    900: '#171d2d',
-                },
-                taupe: {
-                    50: '#fbfbfd',
-                    100: '#f4f6f9',
-                    200: '#e7ebf1',
-                    300: '#d2d9e4',
-                    400: '#9ba5b6',
-                    500: '#707c8f',
-                    600: '#596275',
-                    700: '#424b5e',
-                    800: '#2d3547',
-                    900: '#1c2334',
-                },
-                blush: {
-                    50: '#fff6f8',
-                    100: '#ffe9ef',
-                    200: '#f8ceda',
-                    300: '#edabc0',
-                    400: '#de88a7',
-                    500: '#c76789',
-                },
+                // champagne → primary RED accent
                 champagne: {
-                    100: '#fff4f8',
-                    200: '#ffdfe9',
-                    300: '#f7c4d5',
-                    400: '#ea9fb8',
-                    500: '#d87c9b',
+                    100: '#FEE2E2',
+                    200: '#FECACA',
+                    300: '#FCA5A5',
+                    400: '#EF4444',
+                    500: '#DC2626',
+                    600: '#B91C1C',
+                },
+                // cream → clean white / light gray
+                cream: {
+                    50:  '#FFFFFF',
+                    100: '#F9FAFB',
+                    200: '#F3F4F6',
+                    300: '#E5E7EB',
+                },
+                // taupe → near-black text palette
+                taupe: {
+                    50:  '#F9FAFB',
+                    100: '#F3F4F6',
+                    200: '#E5E7EB',
+                    300: '#D1D5DB',
+                    400: '#9CA3AF',
+                    500: '#6B7280',
+                    600: '#4B5563',
+                    700: '#374151',
+                    800: '#1F2937',
+                    900: '#111827',
+                },
+                // olive → very dark (admin sidebar, dark CTA sections)
+                olive: {
+                    500: '#1F2937',
+                    600: '#111827',
+                    700: '#0D1117',
+                    800: '#09090B',
+                    900: '#050507',
+                },
+                // blush → light red tints (decorative backgrounds)
+                blush: {
+                    50:  '#FFF7F7',
+                    100: '#FEE2E2',
+                    200: '#FECACA',
+                    300: '#FCA5A5',
+                    400: '#F87171',
+                    500: '#EF4444',
+                },
+                // gold → amber for admin badges
+                gold: {
+                    50:  '#FFFBF5',
+                    100: '#FFF8ED',
+                    200: '#FFEFD5',
+                    300: '#FFD89B',
+                    400: '#F59E0B',
+                    500: '#D97706',
+                    600: '#B45309',
+                    800: '#78350F',
                 },
             },
             animation: {
@@ -75,16 +82,16 @@ export default {
             },
             keyframes: {
                 fadeIn: {
-                    '0%': { opacity: '0' },
+                    '0%':   { opacity: '0' },
                     '100%': { opacity: '1' },
                 },
                 slideUp: {
-                    '0%': { opacity: '0', transform: 'translateY(30px)' },
+                    '0%':   { opacity: '0', transform: 'translateY(30px)' },
                     '100%': { opacity: '1', transform: 'translateY(0)' },
                 },
                 float: {
                     '0%, 100%': { transform: 'translateY(0px)' },
-                    '50%': { transform: 'translateY(-8px)' },
+                    '50%':      { transform: 'translateY(-8px)' },
                 },
             },
         },
