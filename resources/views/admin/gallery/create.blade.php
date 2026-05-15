@@ -17,11 +17,16 @@
         <form method="POST" action="{{ route('admin.gallery.store') }}" enctype="multipart/form-data" class="space-y-5">
             @csrf
 
-            <div>
+            <div x-data="{ preview: null }">
                 <label class="form-label" for="image">Imagen *</label>
+                <div x-show="preview" class="mb-3">
+                    <p class="text-xs font-semibold text-green-600 mb-1">Vista previa:</p>
+                    <img :src="preview" alt="Preview" class="h-40 w-auto rounded-xl object-cover border-2 border-green-400">
+                </div>
                 <input type="file" id="image" name="image" accept="image/*" required
+                       @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
                        class="form-input py-2.5 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-gold-400/20 file:text-olive-800">
-                <p class="text-xs text-gray-400 mt-1">JPG, PNG, GIF — máximo 2MB</p>
+                <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP — máximo 2MB. Se convertirá automáticamente a WebP.</p>
             </div>
 
             <div>

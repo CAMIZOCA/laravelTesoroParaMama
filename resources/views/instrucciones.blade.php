@@ -15,7 +15,7 @@
         if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
             return $path;
         }
-        return asset('storage/' . ltrim($path, '/'));
+        return \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($path, '/'));
     };
 @endphp
 

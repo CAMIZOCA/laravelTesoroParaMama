@@ -4,7 +4,19 @@
 @section('page-title', 'Contenido del Sitio')
 
 @section('content')
-<div x-data="{ tab: 'hero' }">
+<div x-data="{
+    tab: 'hero',
+    previews: { historia_image: null, tangible_image: null, instr_step1_image: null, instr_step2_image: null },
+    dirty: false,
+    setPreview(field, event) {
+        const file = event.target.files[0];
+        if (file) {
+            this.previews[field] = URL.createObjectURL(file);
+            this.dirty = true;
+        }
+    },
+    markDirty() { this.dirty = true; }
+}">
 
     {{-- Tab nav --}}
     <div class="flex flex-wrap gap-2 mb-8 border-b border-gray-200 pb-0">
@@ -25,7 +37,8 @@
         @endforeach
     </div>
 
-    <form action="{{ route('admin.content.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.content.update') }}" method="POST" enctype="multipart/form-data"
+          @input="markDirty()" @change="markDirty()">
         @csrf
 
         {{-- ── HERO ── --}}
@@ -118,13 +131,21 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la sección</label>
+                    {{-- Imagen actual --}}
                     @if($content['historia_image'])
-                        <div class="mb-3">
-                            <img src="{{ asset('storage/' . ltrim($content['historia_image'], '/')) }}"
+                        <div class="mb-3" x-show="!previews.historia_image">
+                            <p class="text-xs text-gray-400 mb-1">Imagen actual:</p>
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($content['historia_image'], '/')) }}"
                                  alt="Historia" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
                         </div>
                     @endif
+                    {{-- Preview de nueva imagen --}}
+                    <div x-show="previews.historia_image" class="mb-3">
+                        <p class="text-xs font-semibold text-green-600 mb-1">Nueva imagen lista para guardar:</p>
+                        <img :src="previews.historia_image" alt="Preview" class="h-40 w-auto rounded-xl object-cover border-2 border-green-400">
+                    </div>
                     <input type="file" name="historia_image" accept="image/*"
+                           @change="setPreview('historia_image', $event)"
                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
                     <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
                 </div>
@@ -209,12 +230,18 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la sección</label>
                     @if($content['tangible_image'])
-                        <div class="mb-3">
-                            <img src="{{ asset('storage/' . ltrim($content['tangible_image'], '/')) }}"
+                        <div class="mb-3" x-show="!previews.tangible_image">
+                            <p class="text-xs text-gray-400 mb-1">Imagen actual:</p>
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($content['tangible_image'], '/')) }}"
                                  alt="Tu Joya" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
                         </div>
                     @endif
+                    <div x-show="previews.tangible_image" class="mb-3">
+                        <p class="text-xs font-semibold text-green-600 mb-1">Nueva imagen lista para guardar:</p>
+                        <img :src="previews.tangible_image" alt="Preview" class="h-40 w-auto rounded-xl object-cover border-2 border-green-400">
+                    </div>
                     <input type="file" name="tangible_image" accept="image/*"
+                           @change="setPreview('tangible_image', $event)"
                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
                     <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
                 </div>
@@ -417,13 +444,19 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen ilustrativa (opcional)</label>
                     @if($content['instr_step1_image'])
-                    <div class="mb-3">
-                        <img src="{{ asset('storage/' . ltrim($content['instr_step1_image'], '/')) }}" alt="Paso 1" class="h-28 rounded-lg object-cover">
-                        <p class="text-xs text-gray-400 mt-1">Imagen actual. Sube otra para reemplazarla.</p>
+                    <div class="mb-3" x-show="!previews.instr_step1_image">
+                        <p class="text-xs text-gray-400 mb-1">Imagen actual:</p>
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($content['instr_step1_image'], '/')) }}" alt="Paso 1" class="h-28 rounded-lg object-cover border border-gray-200">
                     </div>
                     @endif
+                    <div x-show="previews.instr_step1_image" class="mb-3">
+                        <p class="text-xs font-semibold text-green-600 mb-1">Nueva imagen lista para guardar:</p>
+                        <img :src="previews.instr_step1_image" alt="Preview" class="h-28 rounded-lg object-cover border-2 border-green-400">
+                    </div>
                     <input type="file" name="instr_step1_image" accept="image/*"
+                           @change="setPreview('instr_step1_image', $event)"
                            class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-gold-50 file:text-gold-700 hover:file:bg-gold-100">
+                    <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
                 </div>
             </div>
 
@@ -460,13 +493,19 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Imagen ilustrativa (opcional)</label>
                     @if($content['instr_step2_image'])
-                    <div class="mb-3">
-                        <img src="{{ asset('storage/' . ltrim($content['instr_step2_image'], '/')) }}" alt="Paso 2" class="h-28 rounded-lg object-cover">
-                        <p class="text-xs text-gray-400 mt-1">Imagen actual. Sube otra para reemplazarla.</p>
+                    <div class="mb-3" x-show="!previews.instr_step2_image">
+                        <p class="text-xs text-gray-400 mb-1">Imagen actual:</p>
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($content['instr_step2_image'], '/')) }}" alt="Paso 2" class="h-28 rounded-lg object-cover border border-gray-200">
                     </div>
                     @endif
+                    <div x-show="previews.instr_step2_image" class="mb-3">
+                        <p class="text-xs font-semibold text-green-600 mb-1">Nueva imagen lista para guardar:</p>
+                        <img :src="previews.instr_step2_image" alt="Preview" class="h-28 rounded-lg object-cover border-2 border-green-400">
+                    </div>
                     <input type="file" name="instr_step2_image" accept="image/*"
+                           @change="setPreview('instr_step2_image', $event)"
                            class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-gold-50 file:text-gold-700 hover:file:bg-gold-100">
+                    <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
                 </div>
             </div>
 
@@ -492,15 +531,28 @@
 
         </div>
 
-        {{-- Save button --}}
-        <div class="mt-6 flex justify-end">
-            <button type="submit"
-                    class="inline-flex items-center gap-2 bg-olive-900 hover:bg-olive-800 text-white font-semibold px-8 py-3 rounded-xl transition-colors shadow-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                Guardar cambios
-            </button>
+        {{-- Sticky save bar --}}
+        <div class="sticky bottom-0 z-20 -mx-8 mt-8 px-8 py-4 bg-white border-t border-gray-200 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-2 text-sm">
+                    <span x-show="dirty" class="inline-flex items-center gap-1.5 text-amber-600 font-medium">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Hay cambios sin guardar
+                    </span>
+                    <span x-show="!dirty" class="text-gray-400">
+                        Pestaña activa: <strong x-text="tab" class="text-gray-600"></strong>
+                        &mdash; haz clic en Guardar cuando termines
+                    </span>
+                </div>
+                <button type="submit" class="admin-btn-primary px-8 py-3 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Guardar cambios
+                </button>
+            </div>
         </div>
     </form>
 </div>
