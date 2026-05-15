@@ -63,7 +63,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
 
     Route::get('theme', [ThemeController::class, 'index'])->name('theme.index');
     Route::post('theme', [ThemeController::class, 'update'])->name('theme.update');
-    Route::post('theme/palette', [ThemeController::class, 'applyPalette'])->name('theme.palette');
 });
 
 // ── Profile ────────────────────────────────────────────────────────────────────
