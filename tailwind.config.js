@@ -17,6 +17,25 @@ export default {
                 display: ['Marcellus', ...defaultTheme.fontFamily.serif],
             },
             colors: {
+                // Semantic theme colors — values come from CSS custom properties
+                // defined at runtime by ThemeSetting (public.blade.php)
+                'tc-primary':    'var(--color-primary)',
+                'tc-secondary':  'var(--color-secondary)',
+                'tc-accent':     'var(--color-accent)',
+                'tc-bg':         'var(--color-bg-main)',
+                'tc-section':    'var(--color-bg-section)',
+                'tc-btn':        'var(--color-btn)',
+                'tc-btn-hover':  'var(--color-btn-hover)',
+                'tc-btn-text':   'var(--color-btn-text)',
+                'tc-title':      'var(--color-title)',
+                'tc-text':       'var(--color-text)',
+                'tc-link':       'var(--color-link)',
+                'tc-card':       'var(--color-card)',
+                'tc-border':     'var(--color-border)',
+                'tc-badge':      'var(--color-badge)',
+                'tc-footer':     'var(--color-footer)',
+                'tc-header':     'var(--color-header)',
+
                 cream: {
                     50: '#fcfcfd',
                     100: '#f6f7fa',

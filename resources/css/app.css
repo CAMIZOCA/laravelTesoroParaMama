@@ -10,11 +10,14 @@
     }
 
     body {
-        @apply bg-cream-50 text-taupe-800 font-sans;
+        @apply font-sans;
+        background-color: var(--color-bg-main, #fcfcfd);
+        color: var(--color-text, #424b5e);
     }
 
     h1, h2, h3, h4, h5, h6 {
         @apply font-serif;
+        color: var(--color-title, #171d2d);
     }
 }
 
@@ -22,14 +25,14 @@
 
     /* ── Botones principales ─────────────────────────────────────── */
     .btn-primary {
-        @apply inline-flex items-center gap-2 bg-champagne-400 hover:bg-champagne-500
-               text-taupe-900 font-semibold px-8 py-4 rounded-full
+        @apply inline-flex items-center gap-2 bg-tc-btn hover:bg-tc-btn-hover
+               text-tc-btn-text font-semibold px-8 py-4 rounded-full
                transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl;
     }
 
     .btn-primary-sm {
-        @apply inline-flex items-center gap-2 bg-champagne-400 hover:bg-champagne-500
-               text-taupe-900 font-medium px-6 py-3 rounded-full
+        @apply inline-flex items-center gap-2 bg-tc-btn hover:bg-tc-btn-hover
+               text-tc-btn-text font-medium px-6 py-3 rounded-full
                transition-all duration-300 hover:scale-105 shadow-md text-sm;
     }
 
@@ -40,26 +43,26 @@
     }
 
     .btn-ghost {
-        @apply inline-flex items-center gap-2 text-champagne-500 hover:text-champagne-400
+        @apply inline-flex items-center gap-2 text-tc-link hover:text-tc-primary
                font-medium transition-colors duration-200 text-sm;
     }
 
     /* ── Tipografía editorial ───────────────────────────────────── */
     .hero-eyebrow {
-        @apply text-xs uppercase tracking-[0.3em] text-champagne-500 font-sans font-medium;
+        @apply text-xs uppercase tracking-[0.3em] text-tc-primary font-sans font-medium;
     }
 
     .hero-display {
-        @apply font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-taupe-900
+        @apply font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-tc-title
                leading-[1.05] tracking-tight;
     }
 
     .section-label {
-        @apply text-champagne-500 font-serif italic text-lg tracking-wide;
+        @apply text-tc-primary font-serif italic text-lg tracking-wide;
     }
 
     .section-title {
-        @apply font-serif text-3xl md:text-4xl lg:text-5xl text-taupe-900 leading-tight;
+        @apply font-serif text-3xl md:text-4xl lg:text-5xl text-tc-title leading-tight;
     }
 
     .section-eyebrow {
@@ -72,8 +75,8 @@
     }
 
     .trust-icon {
-        @apply w-9 h-9 rounded-full bg-champagne-100 flex items-center justify-center
-               text-champagne-500 flex-shrink-0;
+        @apply w-9 h-9 rounded-full bg-tc-badge flex items-center justify-center
+               text-tc-primary flex-shrink-0;
     }
 
     .trust-text {
@@ -90,8 +93,8 @@
 
     /* ── Tarjetas de producto premium ───────────────────────────── */
     .product-card-premium {
-        @apply bg-white rounded-2xl overflow-hidden shadow-sm
-               hover:shadow-xl transition-all duration-500 border border-cream-200
+        @apply bg-tc-card rounded-2xl overflow-hidden shadow-sm
+               hover:shadow-xl transition-all duration-500 border border-tc-border
                flex flex-col;
     }
 
@@ -110,7 +113,7 @@
     }
 
     .badge-popular {
-        @apply badge-premium bg-champagne-200 text-taupe-700;
+        @apply badge-premium bg-tc-accent text-tc-secondary;
     }
 
     .badge-new {
@@ -123,33 +126,33 @@
 
     /* ── Cards de feature ────────────────────────────────────────── */
     .card-feature {
-        @apply bg-white rounded-2xl p-8 shadow-sm hover:shadow-md
-               transition-shadow duration-300 border border-cream-200;
+        @apply bg-tc-card rounded-2xl p-8 shadow-sm hover:shadow-md
+               transition-shadow duration-300 border border-tc-border;
     }
 
     /* ── Pasos del proceso ──────────────────────────────────────── */
     .process-step-number {
-        @apply w-11 h-11 rounded-full bg-champagne-200 text-taupe-700
+        @apply w-11 h-11 rounded-full bg-tc-accent text-tc-secondary
                flex items-center justify-center font-serif text-lg font-semibold
-               flex-shrink-0 ring-4 ring-champagne-100;
+               flex-shrink-0 ring-4 ring-tc-badge;
     }
 
     .process-step-line {
-        @apply hidden lg:block flex-1 h-px bg-champagne-200 mx-4 mt-[-1.375rem];
+        @apply hidden lg:block flex-1 h-px bg-tc-border mx-4 mt-[-1.375rem];
     }
 
     /* ── Testimonios ────────────────────────────────────────────── */
     .testimonial-card {
-        @apply bg-white rounded-3xl p-8 shadow-sm border border-cream-100
+        @apply bg-tc-card rounded-3xl p-8 shadow-sm border border-tc-border
                hover:shadow-md transition-shadow duration-300 flex flex-col gap-5;
     }
 
     .testimonial-stars {
-        @apply flex gap-0.5 text-champagne-400;
+        @apply flex gap-0.5 text-tc-primary;
     }
 
     .testimonial-quote {
-        @apply font-serif text-base text-taupe-700 leading-relaxed italic flex-1;
+        @apply font-serif text-base text-tc-text leading-relaxed italic flex-1;
     }
 
     .testimonial-author {
@@ -157,22 +160,22 @@
     }
 
     .testimonial-avatar {
-        @apply w-10 h-10 rounded-full bg-champagne-200 flex items-center justify-center
-               font-serif text-taupe-700 font-semibold text-sm flex-shrink-0;
+        @apply w-10 h-10 rounded-full bg-tc-accent flex items-center justify-center
+               font-serif text-tc-secondary font-semibold text-sm flex-shrink-0;
     }
 
     /* ── FAQ Acordeón ───────────────────────────────────────────── */
     .faq-item {
-        @apply border-b border-cream-200;
+        @apply border-b border-tc-border;
     }
 
     .faq-question {
-        @apply font-serif text-base text-taupe-800 font-medium cursor-pointer
+        @apply font-serif text-base text-tc-title font-medium cursor-pointer
                flex items-center justify-between gap-4 w-full text-left py-5;
     }
 
     .faq-answer {
-        @apply text-sm text-taupe-500 leading-relaxed pb-5 pr-8;
+        @apply text-sm text-tc-text leading-relaxed pb-5 pr-8;
     }
 
     /* ── Tarjetas de colección ──────────────────────────────────── */
@@ -188,13 +191,13 @@
 
     /* ── Divisor decorativo ──────────────────────────────────────── */
     .ornament {
-        @apply flex items-center justify-center gap-3 text-champagne-300 my-1;
+        @apply flex items-center justify-center gap-3 text-tc-accent my-1;
     }
 
     .ornament::before,
     .ornament::after {
         content: '';
-        @apply flex-1 h-px bg-cream-200;
+        @apply flex-1 h-px bg-tc-border;
     }
 
     /* ── Admin components (sin cambios) ─────────────────────────── */
