@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\NewOrderNotification;
 use App\Mail\OrderConfirmation;
+use App\Models\Ambassador;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\JsonResponse;
@@ -35,9 +36,13 @@ class PaymentController extends Controller
             return redirect()->route('checkout');
         }
 
-        $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $discount = (float) session('ambassador_discount', 0);
+        $total    = max(0, $subtotal - $discount);
 
-        return view('pago', compact('cart', 'customer', 'total'));
+        $ambassadorCode = session('ambassador_code');
+
+        return view('pago', compact('cart', 'customer', 'subtotal', 'discount', 'total', 'ambassadorCode'));
     }
 
     public function prepare(Request $request): RedirectResponse
@@ -49,7 +54,9 @@ class PaymentController extends Controller
             return redirect()->route('checkout');
         }
 
-        $total       = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $subtotal    = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $discount    = (float) session('ambassador_discount', 0);
+        $total       = max(0, $subtotal - $discount);
         $amountCents = (int) round($total * 100);
         $clientTxId  = (string) Str::uuid();
 
@@ -106,7 +113,7 @@ class PaymentController extends Controller
         // Idempotency: order may already exist
         $existing = Order::where('payphone_transaction_id', $transactionId)->first();
         if ($existing) {
-            session()->forget(['cart', 'checkout_data', 'payphone_client_tx_id']);
+            session()->forget(['cart', 'checkout_data', 'payphone_client_tx_id', 'ambassador_code', 'ambassador_id', 'ambassador_discount']);
             return view('pago-exitoso', ['order' => $existing]);
         }
 
@@ -140,23 +147,41 @@ class PaymentController extends Controller
             return redirect()->route('tienda');
         }
 
-        $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $subtotal       = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $discount       = (float) session('ambassador_discount', 0);
+        $total          = max(0, $subtotal - $discount);
+        $ambassadorCode = session('ambassador_code');
+        $ambassadorId   = session('ambassador_id');
+
+        // Re-validate ambassador is still active at payment time
+        if ($ambassadorCode) {
+            $ambassador = Ambassador::active()->where('code', $ambassadorCode)->first();
+            if (!$ambassador) {
+                $discount       = 0;
+                $total          = $subtotal;
+                $ambassadorCode = null;
+                $ambassadorId   = null;
+            }
+        }
 
         $order = Order::create([
-            'order_number'                 => Order::generateOrderNumber(),
-            'customer_name'                => $customer['nombre'],
-            'customer_email'               => $customer['email'],
-            'customer_phone'               => $customer['telefono'],
-            'customer_country'             => $customer['pais'],
-            'customer_city'                => $customer['ciudad'],
-            'customer_address'             => $customer['direccion'],
-            'customer_notes'               => $customer['notas'] ?? null,
-            'subtotal'                     => $subtotal,
-            'total'                        => $subtotal,
-            'payphone_transaction_id'      => $transactionId,
+            'order_number'                   => Order::generateOrderNumber(),
+            'customer_name'                  => $customer['nombre'],
+            'customer_email'                 => $customer['email'],
+            'customer_phone'                 => $customer['telefono'],
+            'customer_country'               => $customer['pais'],
+            'customer_city'                  => $customer['ciudad'],
+            'customer_address'               => $customer['direccion'],
+            'customer_notes'                 => $customer['notas'] ?? null,
+            'ambassador_id'                  => $ambassadorId,
+            'ambassador_code'                => $ambassadorCode,
+            'discount_amount'                => $discount,
+            'subtotal'                       => $subtotal,
+            'total'                          => $total,
+            'payphone_transaction_id'        => $transactionId,
             'payphone_client_transaction_id' => $clientTxId,
-            'status'                       => 'paid',
-            'paid_at'                      => now(),
+            'status'                         => 'paid',
+            'paid_at'                        => now(),
         ]);
 
         foreach ($cart as $item) {
@@ -171,7 +196,7 @@ class PaymentController extends Controller
             ]);
         }
 
-        session()->forget(['cart', 'checkout_data', 'payphone_client_tx_id']);
+        session()->forget(['cart', 'checkout_data', 'payphone_client_tx_id', 'ambassador_code', 'ambassador_id', 'ambassador_discount']);
 
         $adminEmail = config('mail.admin_email', config('mail.from.address'));
         try {

@@ -77,6 +77,29 @@
                         </div>
                     </div>
 
+                    {{-- Ambassador / discount code --}}
+                    <div class="bg-white rounded-2xl shadow-sm border border-cream-200 p-6">
+                        <h2 class="font-semibold text-olive-900 text-lg mb-4">Código de embajadora</h2>
+                        <div>
+                            <label class="form-label" for="ambassador_code">Código de descuento (opcional)</label>
+                            <input type="text" id="ambassador_code" name="ambassador_code"
+                                   value="{{ old('ambassador_code', $ambassadorCode ?? '') }}"
+                                   class="form-input uppercase" placeholder="Ej: MASLACTANCIA"
+                                   style="text-transform:uppercase">
+                            @error('ambassador_code')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                            @if($ambassadorCode && !$errors->has('ambassador_code'))
+                                <p class="text-green-600 text-xs mt-1 flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    Código aplicado: -${{ number_format($discount, 2) }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn-primary w-full justify-center">
                         Continuar al pago
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,9 +127,22 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="border-t border-cream-100 pt-3 flex justify-between font-bold text-olive-900">
-                        <span>Total</span>
-                        <span>${{ number_format($total, 2) }}</span>
+
+                    <div class="border-t border-cream-100 pt-3 space-y-1.5">
+                        <div class="flex justify-between text-sm text-olive-600">
+                            <span>Subtotal</span>
+                            <span>${{ number_format($subtotal, 2) }}</span>
+                        </div>
+                        @if($discount > 0)
+                        <div class="flex justify-between text-sm text-green-600">
+                            <span>Descuento ({{ $ambassadorCode }})</span>
+                            <span>-${{ number_format($discount, 2) }}</span>
+                        </div>
+                        @endif
+                        <div class="flex justify-between font-bold text-olive-900 pt-1 border-t border-cream-100">
+                            <span>Total</span>
+                            <span>${{ number_format($total, 2) }}</span>
+                        </div>
                     </div>
 
                     <div class="mt-4 pt-4 border-t border-cream-100 flex items-center gap-2 text-xs text-gray-400">
