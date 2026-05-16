@@ -124,9 +124,22 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="border-t border-cream-100 pt-3 flex justify-between font-bold text-olive-900">
-                        <span>Total</span>
-                        <span>${{ number_format($total, 2) }}</span>
+
+                    <div class="border-t border-cream-100 pt-3 space-y-1.5">
+                        <div class="flex justify-between text-sm text-olive-600">
+                            <span>Subtotal</span>
+                            <span>${{ number_format($subtotal, 2) }}</span>
+                        </div>
+                        @if($discount > 0)
+                        <div class="flex justify-between text-sm text-green-600">
+                            <span>Descuento ({{ $ambassadorCode }})</span>
+                            <span>-${{ number_format($discount, 2) }}</span>
+                        </div>
+                        @endif
+                        <div class="flex justify-between font-bold text-olive-900 pt-1 border-t border-cream-100">
+                            <span>Total</span>
+                            <span>${{ number_format($total, 2) }}</span>
+                        </div>
                     </div>
                 </div>
             </div>

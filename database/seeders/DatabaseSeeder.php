@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->call(AmbassadorSeeder::class);
+
+
         // Admin user
         User::firstOrCreate(
             ['email' => 'admin@untesoroparamama.com'],

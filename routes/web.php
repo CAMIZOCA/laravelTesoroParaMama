@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AmbassadorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -50,6 +51,7 @@ Route::get('/pago/cancelado', [PaymentController::class, 'cancelled'])->name('pa
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::resource('ambassadors', AmbassadorController::class);
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('gallery', GalleryController::class);
