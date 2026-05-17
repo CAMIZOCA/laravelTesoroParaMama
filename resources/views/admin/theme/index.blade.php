@@ -96,11 +96,14 @@
                 <h3 class="font-serif text-lg text-slate-900 font-semibold border-b border-gray-100 pb-3">Botones y UI</h3>
 
                 @foreach([
-                    ['theme_color_btn',       'Fondo de botones',     'Color principal de los botones CTA'],
-                    ['theme_color_btn_hover',  'Hover de botones',     'Color al pasar el mouse por botones'],
-                    ['theme_color_btn_text',   'Texto de botones',     'Color del texto dentro de botones'],
-                    ['theme_color_border',     'Color de bordes',      'Líneas divisorias y marcos de tarjetas'],
-                    ['theme_color_badge',      'Fondo de badges',      'Etiquetas de oferta, "Nuevo", etc.'],
+                    ['theme_color_btn',                'Fondo de botones',          'Color principal de los botones CTA (fondos claros)'],
+                    ['theme_color_btn_hover',           'Hover de botones',          'Color al pasar el mouse por botones'],
+                    ['theme_color_btn_text',            'Texto de botones',          'Color del texto dentro de botones'],
+                    ['theme_color_btn_inverse',         'Botón inverso (fondo)',     'Botones sobre secciones oscuras, p.ej. footer'],
+                    ['theme_color_btn_inverse_hover',   'Botón inverso (hover)',     'Color al pasar el mouse por botones inversos'],
+                    ['theme_color_btn_inverse_text',    'Botón inverso (texto)',     'Texto dentro del botón inverso'],
+                    ['theme_color_border',              'Color de bordes',           'Líneas divisorias y marcos de tarjetas'],
+                    ['theme_color_badge',               'Fondo de badges',           'Etiquetas de oferta, "Nuevo", etc.'],
                 ] as [$key, $label, $hint])
                 <div class="flex items-center gap-4">
                     <input type="color" name="{{ $key }}" value="{{ $theme[$key] }}"

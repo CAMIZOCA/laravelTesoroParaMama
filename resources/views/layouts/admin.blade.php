@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin') &mdash; Un Tesoro Para Mamá</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- ── Theme CSS Custom Properties ── --}}
+    @php
+        $themeDefaults = \App\Models\ThemeSetting::defaults();
+        $themeSaved    = \App\Models\ThemeSetting::all_settings();
+        $t             = array_merge($themeDefaults, $themeSaved);
+    @endphp
+    <style>
+        :root {
+            --color-primary:    {{ $t['theme_color_primary'] }};
+            --color-secondary:  {{ $t['theme_color_secondary'] }};
+            --color-accent:     {{ $t['theme_color_accent'] }};
+            --color-bg-main:    {{ $t['theme_color_bg_main'] }};
+            --color-bg-section: {{ $t['theme_color_bg_section'] }};
+            --color-btn:                {{ $t['theme_color_btn'] }};
+            --color-btn-hover:          {{ $t['theme_color_btn_hover'] }};
+            --color-btn-text:           {{ $t['theme_color_btn_text'] }};
+            --color-btn-inverse:        {{ $t['theme_color_btn_inverse'] }};
+            --color-btn-inverse-hover:  {{ $t['theme_color_btn_inverse_hover'] }};
+            --color-btn-inverse-text:   {{ $t['theme_color_btn_inverse_text'] }};
+            --color-title:      {{ $t['theme_color_title'] }};
+            --color-text:       {{ $t['theme_color_text'] }};
+            --color-link:       {{ $t['theme_color_link'] }};
+            --color-card:       {{ $t['theme_color_card'] }};
+            --color-border:     {{ $t['theme_color_border'] }};
+            --color-badge:      {{ $t['theme_color_badge'] }};
+            --color-footer:     {{ $t['theme_color_footer'] }};
+            --color-header:     {{ $t['theme_color_header'] }};
+        }
+    </style>
 </head>
 <body class="bg-gray-50 antialiased" x-data="{ sidebarOpen: false }">
 
