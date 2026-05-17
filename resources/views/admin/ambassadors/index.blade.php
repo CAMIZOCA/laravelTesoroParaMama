@@ -6,8 +6,31 @@
 @section('content')
 
 @if(session('success'))
-    <div class="mb-6 bg-green-50 border border-green-200 text-green-700 rounded-xl px-5 py-4 text-sm">
+    <div class="mb-4 bg-green-50 border border-green-200 text-green-700 rounded-xl px-5 py-4 text-sm">
         {{ session('success') }}
+    </div>
+@endif
+
+@if(session('import_success'))
+    <div class="mb-4 bg-green-50 border border-green-200 text-green-700 rounded-xl px-5 py-4 text-sm">
+        {{ session('import_success') }}
+    </div>
+@endif
+
+@if(session('import_warning'))
+    <div class="mb-4 bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl px-5 py-4 text-sm">
+        {{ session('import_warning') }}
+    </div>
+@endif
+
+@if(session('import_errors'))
+    <div class="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-xl px-5 py-4 text-sm">
+        <p class="font-semibold mb-1">Errores durante la importación:</p>
+        <ul class="list-disc list-inside space-y-0.5">
+            @foreach(session('import_errors') as $err)
+                <li>{{ $err }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif
 
@@ -31,10 +54,73 @@
         @if(request('search') || request('status'))
             <a href="{{ route('admin.ambassadors.index') }}" class="admin-btn-secondary px-4 py-2">Limpiar</a>
         @endif
-        <a href="{{ route('admin.ambassadors.create') }}" class="admin-btn-primary px-5 py-2 ml-auto">
-            + Nueva embajadora
-        </a>
+        <div class="ml-auto flex items-center gap-2">
+            <a href="{{ route('admin.ambassadors.export') }}"
+               class="admin-btn-secondary px-4 py-2 text-sm inline-flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                Exportar CSV
+            </a>
+            <button type="button" onclick="document.getElementById('importModal').classList.remove('hidden')"
+                    class="admin-btn-secondary px-4 py-2 text-sm inline-flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4 4l4-4m0 0l4 4m-4-4V4"/>
+                </svg>
+                Importar CSV
+            </button>
+            <a href="{{ route('admin.ambassadors.create') }}" class="admin-btn-primary px-5 py-2">
+                + Nueva embajadora
+            </a>
+        </div>
     </form>
+</div>
+
+{{-- Import Modal --}}
+<div id="importModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-olive-900">Importar embajadoras desde CSV</h2>
+            <button type="button" onclick="document.getElementById('importModal').classList.add('hidden')"
+                    class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="mb-4 bg-cream-50 border border-cream-200 rounded-lg px-4 py-3 text-xs text-olive-700 leading-relaxed">
+            <p class="font-semibold mb-1">Formato esperado del CSV:</p>
+            <code class="block font-mono bg-white border border-cream-200 rounded px-2 py-1 text-xs mb-2 overflow-x-auto">
+                name,last_name,email,code,discount_type,discount_value,status
+            </code>
+            <ul class="space-y-0.5 list-disc list-inside">
+                <li><strong>name</strong> y <strong>code</strong>: obligatorios</li>
+                <li><strong>discount_type</strong>: <code>percentage</code> o <code>fixed</code></li>
+                <li><strong>status</strong>: <code>active</code> o <code>inactive</code> (default: active)</li>
+                <li>Códigos duplicados serán omitidos automáticamente</li>
+            </ul>
+        </div>
+
+        <form method="POST" action="{{ route('admin.ambassadors.import') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-4">
+                <label class="form-label">Archivo CSV</label>
+                <input type="file" name="csv_file" accept=".csv" required
+                       class="block w-full text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border file:border-gray-200 file:text-sm file:font-medium file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100 cursor-pointer">
+                @error('csv_file')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="flex gap-3 justify-end">
+                <button type="button" onclick="document.getElementById('importModal').classList.add('hidden')"
+                        class="admin-btn-secondary px-4 py-2 text-sm">Cancelar</button>
+                <button type="submit" class="admin-btn-primary px-5 py-2 text-sm">Importar</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 {{-- Table --}}
