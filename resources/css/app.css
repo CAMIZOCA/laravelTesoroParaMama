@@ -55,7 +55,7 @@
     }
 
     .btn-ghost {
-        @apply inline-flex items-center gap-2 text-tc-link hover:text-tc-primary
+        @apply inline-flex items-center gap-2 text-tc-link hover:text-tc-link-hover
                font-medium transition-colors duration-200 text-sm;
     }
 

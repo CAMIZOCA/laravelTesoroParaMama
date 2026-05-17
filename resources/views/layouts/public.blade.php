@@ -125,6 +125,7 @@
             --color-title:      {{ $t['theme_color_title'] }};
             --color-text:       {{ $t['theme_color_text'] }};
             --color-link:       {{ $t['theme_color_link'] }};
+            --color-link-hover: {{ $t['theme_color_link_hover'] ?? '#B45F7F' }};
             --color-card:       {{ $t['theme_color_card'] }};
             --color-border:     {{ $t['theme_color_border'] }};
             --color-badge:      {{ $t['theme_color_badge'] }};
