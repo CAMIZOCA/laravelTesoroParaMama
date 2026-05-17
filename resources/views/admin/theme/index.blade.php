@@ -4,6 +4,9 @@
 @section('page-title', 'Colores y Tema')
 
 @section('content')
+@php
+    $theme['theme_color_link_hover'] ??= '#B45F7F';
+@endphp
 <div x-data="{
     theme: @js($theme),
     updatePreview(key, value) {
@@ -75,7 +78,8 @@
                 @foreach([
                     ['theme_color_title',  'Color de títulos',    'H1, H2, H3 del sitio'],
                     ['theme_color_text',   'Color de texto',      'Párrafos y texto general'],
-                    ['theme_color_link',   'Color de enlaces',    'Links y botones de texto'],
+                    ['theme_color_link',       'Color de enlaces',       'Links y botones de texto'],
+                    ['theme_color_link_hover', 'Hover de enlaces',       'Color al pasar el mouse por un link'],
                 ] as [$key, $label, $hint])
                 <div class="flex items-center gap-4">
                     <input type="color" name="{{ $key }}" value="{{ $theme[$key] }}"

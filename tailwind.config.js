@@ -30,6 +30,7 @@ export default {
                 'tc-title':      'var(--color-title)',
                 'tc-text':       'var(--color-text)',
                 'tc-link':       'var(--color-link)',
+                'tc-link-hover': 'var(--color-link-hover)',
                 'tc-card':       'var(--color-card)',
                 'tc-border':     'var(--color-border)',
                 'tc-badge':      'var(--color-badge)',
