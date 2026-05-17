@@ -51,6 +51,8 @@ Route::get('/pago/cancelado', [PaymentController::class, 'cancelled'])->name('pa
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('ambassadors/export', [AmbassadorController::class, 'exportCsv'])->name('ambassadors.export');
+    Route::post('ambassadors/import', [AmbassadorController::class, 'importCsv'])->name('ambassadors.import');
     Route::resource('ambassadors', AmbassadorController::class);
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
