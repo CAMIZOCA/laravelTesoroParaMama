@@ -36,6 +36,18 @@
                transition-all duration-300 hover:scale-105 shadow-md text-sm;
     }
 
+    .btn-inverse {
+        @apply inline-flex items-center gap-2 bg-tc-btn-inv
+               text-tc-btn-inv-text font-semibold px-8 py-4 rounded-full
+               transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl;
+    }
+
+    .btn-inverse-sm {
+        @apply inline-flex items-center gap-2 bg-tc-btn-inv
+               text-tc-btn-inv-text font-medium px-6 py-3 rounded-full
+               transition-all duration-300 hover:scale-105 shadow-md text-sm;
+    }
+
     .btn-outline {
         @apply inline-flex items-center gap-2 border border-tc-border hover:border-tc-border
                text-tc-text hover:text-tc-title font-medium px-8 py-4 rounded-full
@@ -219,6 +231,19 @@
 
     .admin-btn-danger {
         @apply admin-btn bg-tc-badge text-tc-primary hover:bg-tc-accent;
+    }
+
+    /* Hover explícito — garantiza que var(--color-btn-hover) se aplica sin el
+       wrapping rgb(var/opacity) de Tailwind v3 que invalida valores hex */
+    .btn-primary:hover,
+    .btn-primary-sm:hover,
+    .admin-btn-primary:hover {
+        background-color: var(--color-btn-hover);
+    }
+
+    .btn-inverse:hover,
+    .btn-inverse-sm:hover {
+        background-color: var(--color-btn-inverse-hover);
     }
 
     .form-input {

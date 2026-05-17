@@ -116,9 +116,12 @@
             --color-accent:     {{ $t['theme_color_accent'] }};
             --color-bg-main:    {{ $t['theme_color_bg_main'] }};
             --color-bg-section: {{ $t['theme_color_bg_section'] }};
-            --color-btn:        {{ $t['theme_color_btn'] }};
-            --color-btn-hover:  {{ $t['theme_color_btn_hover'] }};
-            --color-btn-text:   {{ $t['theme_color_btn_text'] }};
+            --color-btn:                {{ $t['theme_color_btn'] }};
+            --color-btn-hover:          {{ $t['theme_color_btn_hover'] }};
+            --color-btn-text:           {{ $t['theme_color_btn_text'] }};
+            --color-btn-inverse:        {{ $t['theme_color_btn_inverse'] }};
+            --color-btn-inverse-hover:  {{ $t['theme_color_btn_inverse_hover'] }};
+            --color-btn-inverse-text:   {{ $t['theme_color_btn_inverse_text'] }};
             --color-title:      {{ $t['theme_color_title'] }};
             --color-text:       {{ $t['theme_color_text'] }};
             --color-link:       {{ $t['theme_color_link'] }};
