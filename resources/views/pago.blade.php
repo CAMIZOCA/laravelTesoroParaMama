@@ -130,6 +130,14 @@
                             <span>Subtotal</span>
                             <span>${{ number_format($subtotal, 2) }}</span>
                         </div>
+                        <div class="flex justify-between text-sm text-olive-600">
+                            <span>Envío</span>
+                            @if($shippingCost > 0)
+                                <span>${{ number_format($shippingCost, 2) }}</span>
+                            @else
+                                <span class="text-green-600 font-medium">Incluido</span>
+                            @endif
+                        </div>
                         @if($discount > 0)
                         <div class="flex justify-between text-sm text-green-600">
                             <span>Descuento ({{ $ambassadorCode }})</span>

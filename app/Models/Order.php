@@ -21,6 +21,7 @@ class Order extends Model
         'ambassador_code',
         'discount_amount',
         'subtotal',
+        'shipping_cost',
         'total',
         'payphone_transaction_id',
         'payphone_client_transaction_id',
@@ -33,6 +34,7 @@ class Order extends Model
 
     protected $casts = [
         'subtotal'        => 'decimal:2',
+        'shipping_cost'   => 'decimal:2',
         'total'           => 'decimal:2',
         'discount_amount' => 'decimal:2',
         'paid_at'         => 'datetime',

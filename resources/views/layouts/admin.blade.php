@@ -11,6 +11,9 @@
         $themeDefaults = \App\Models\ThemeSetting::defaults();
         $themeSaved    = \App\Models\ThemeSetting::all_settings();
         $t             = array_merge($themeDefaults, $themeSaved);
+        $t['theme_color_btn_inverse']       ??= '#F8D3DF';
+        $t['theme_color_btn_inverse_hover'] ??= '#f0b8ca';
+        $t['theme_color_btn_inverse_text']  ??= '#272D3E';
     @endphp
     <style>
         :root {

@@ -36,13 +36,14 @@ class PaymentController extends Controller
             return redirect()->route('checkout');
         }
 
-        $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
-        $discount = (float) session('ambassador_discount', 0);
-        $total    = max(0, $subtotal - $discount);
+        $subtotal     = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $shippingCost = (float) ($customer['shipping_cost'] ?? 0);
+        $discount     = (float) session('ambassador_discount', 0);
+        $total        = max(0, $subtotal + $shippingCost - $discount);
 
         $ambassadorCode = session('ambassador_code');
 
-        return view('pago', compact('cart', 'customer', 'subtotal', 'discount', 'total', 'ambassadorCode'));
+        return view('pago', compact('cart', 'customer', 'subtotal', 'shippingCost', 'discount', 'total', 'ambassadorCode'));
     }
 
     public function prepare(Request $request): RedirectResponse
@@ -54,10 +55,11 @@ class PaymentController extends Controller
             return redirect()->route('checkout');
         }
 
-        $subtotal    = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
-        $discount    = (float) session('ambassador_discount', 0);
-        $total       = max(0, $subtotal - $discount);
-        $amountCents = (int) round($total * 100);
+        $subtotal     = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $shippingCost = (float) ($customer['shipping_cost'] ?? 0);
+        $discount     = (float) session('ambassador_discount', 0);
+        $total        = max(0, $subtotal + $shippingCost - $discount);
+        $amountCents  = (int) round($total * 100);
         $clientTxId  = (string) Str::uuid();
 
         // Store in session for later verification
@@ -148,8 +150,9 @@ class PaymentController extends Controller
         }
 
         $subtotal       = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
+        $shippingCost   = (float) ($customer['shipping_cost'] ?? 0);
         $discount       = (float) session('ambassador_discount', 0);
-        $total          = max(0, $subtotal - $discount);
+        $total          = max(0, $subtotal + $shippingCost - $discount);
         $ambassadorCode = session('ambassador_code');
         $ambassadorId   = session('ambassador_id');
 
@@ -177,6 +180,7 @@ class PaymentController extends Controller
             'ambassador_code'                => $ambassadorCode,
             'discount_amount'                => $discount,
             'subtotal'                       => $subtotal,
+            'shipping_cost'                  => $shippingCost,
             'total'                          => $total,
             'payphone_transaction_id'        => $transactionId,
             'payphone_client_transaction_id' => $clientTxId,

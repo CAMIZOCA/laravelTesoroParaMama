@@ -41,9 +41,29 @@
                     <p class="font-semibold text-olive-900">${{ number_format($item->subtotal, 2) }}</p>
                 </div>
                 @endforeach
-                <div class="flex justify-between pt-3 border-t border-gray-200">
-                    <span class="font-semibold text-olive-900">Total</span>
-                    <span class="text-xl font-bold text-olive-900">${{ number_format($order->total, 2) }}</span>
+                <div class="pt-3 border-t border-gray-200 space-y-1">
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Subtotal</span>
+                        <span>${{ number_format($order->subtotal, 2) }}</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Envío</span>
+                        @if(($order->shipping_cost ?? 0) > 0)
+                            <span>${{ number_format($order->shipping_cost, 2) }}</span>
+                        @else
+                            <span class="text-green-600">Incluido</span>
+                        @endif
+                    </div>
+                    @if(($order->discount_amount ?? 0) > 0)
+                    <div class="flex justify-between text-sm text-green-600">
+                        <span>Descuento{{ $order->ambassador_code ? ' ('.$order->ambassador_code.')' : '' }}</span>
+                        <span>-${{ number_format($order->discount_amount, 2) }}</span>
+                    </div>
+                    @endif
+                    <div class="flex justify-between font-semibold text-olive-900 pt-1 border-t border-gray-100">
+                        <span>Total</span>
+                        <span class="text-xl font-bold">${{ number_format($order->total, 2) }}</span>
+                    </div>
                 </div>
             </div>
         </div>

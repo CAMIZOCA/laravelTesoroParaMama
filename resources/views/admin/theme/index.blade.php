@@ -5,7 +5,10 @@
 
 @section('content')
 @php
-    $theme['theme_color_link_hover'] ??= '#B45F7F';
+    $theme['theme_color_btn_inverse']       ??= '#F8D3DF';
+    $theme['theme_color_btn_inverse_hover'] ??= '#f0b8ca';
+    $theme['theme_color_btn_inverse_text']  ??= '#272D3E';
+    $theme['theme_color_link_hover']        ??= '#B45F7F';
 @endphp
 <div x-data="{
     theme: @js($theme),

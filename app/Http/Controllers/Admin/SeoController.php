@@ -44,7 +44,11 @@ class SeoController extends Controller
             'schema_phone'          => 'nullable|string|max:50',
             'schema_email'          => 'nullable|email|max:100',
             'schema_address'        => 'nullable|string|max:255',
+            'whatsapp_number'       => 'nullable|string|max:20',
+            'whatsapp_enabled'      => 'nullable|boolean',
         ]);
+
+        $validated['whatsapp_enabled'] = $request->boolean('whatsapp_enabled') ? '1' : '0';
 
         // Handle OG image upload
         if ($request->hasFile('og_image')) {

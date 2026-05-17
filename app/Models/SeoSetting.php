@@ -77,6 +77,8 @@ class SeoSetting extends Model
             'schema_phone'         => '+593 999 829 469',
             'schema_email'         => '',
             'schema_address'       => '',
+            'whatsapp_number'      => '593999829469',
+            'whatsapp_enabled'     => '1',
         ];
     }
 }

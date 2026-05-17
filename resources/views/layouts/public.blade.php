@@ -108,6 +108,10 @@
         $themeDefaults = \App\Models\ThemeSetting::defaults();
         $themeSaved    = \App\Models\ThemeSetting::all_settings();
         $t             = array_merge($themeDefaults, $themeSaved);
+        // Fallbacks explícitos por si OPcache sirve una versión antigua del modelo
+        $t['theme_color_btn_inverse']       ??= '#F8D3DF';
+        $t['theme_color_btn_inverse_hover'] ??= '#f0b8ca';
+        $t['theme_color_btn_inverse_text']  ??= '#272D3E';
     @endphp
     <style>
         :root {
@@ -186,6 +190,8 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id={{ $s('facebook_pixel_id') }}&ev=PageView&noscript=1"/></noscript>
     @endif
+
+    @include('components.whatsapp-button')
 
     @stack('scripts')
 </body>
