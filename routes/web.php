@@ -20,6 +20,16 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 
+// ── Site password unlock ───────────────────────────────────────────────────────
+Route::post('/acceso', function (\Illuminate\Http\Request $request) {
+    if ($request->input('password') === env('SITE_PASSWORD')) {
+        $request->session()->put('site_unlocked', true);
+        return redirect('/');
+    }
+    $request->session()->flash('site_password_error', 'Contraseña incorrecta.');
+    return redirect()->back();
+})->name('site.unlock');
+
 // ── Public routes ──────────────────────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/instrucciones', [InstructionsController::class, 'index'])->name('instrucciones');
