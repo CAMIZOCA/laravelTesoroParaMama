@@ -191,7 +191,23 @@
                 @if(session('success'))
                     <div
                         x-data="{ show: true }"
-                        x-init="setTimeout(() => show = false, 4000)"
+                        x-init="
+                            setTimeout(() => show = false, 4000);
+                            try {
+                                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                                [523, 659, 784].forEach((freq, i) => {
+                                    const o = ctx.createOscillator();
+                                    const g = ctx.createGain();
+                                    o.connect(g); g.connect(ctx.destination);
+                                    o.frequency.value = freq;
+                                    o.type = 'sine';
+                                    const t = ctx.currentTime + i * 0.12;
+                                    g.gain.setValueAtTime(0.18, t);
+                                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+                                    o.start(t); o.stop(t + 0.25);
+                                });
+                            } catch(e) {}
+                        "
                         x-show="show"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 -translate-y-4"
@@ -212,7 +228,23 @@
                 @if($errors->any())
                     <div
                         x-data="{ show: true }"
-                        x-init="setTimeout(() => show = false, 6000)"
+                        x-init="
+                            setTimeout(() => show = false, 6000);
+                            try {
+                                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                                [330, 262].forEach((freq, i) => {
+                                    const o = ctx.createOscillator();
+                                    const g = ctx.createGain();
+                                    o.connect(g); g.connect(ctx.destination);
+                                    o.frequency.value = freq;
+                                    o.type = 'sine';
+                                    const t = ctx.currentTime + i * 0.15;
+                                    g.gain.setValueAtTime(0.18, t);
+                                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+                                    o.start(t); o.stop(t + 0.3);
+                                });
+                            } catch(e) {}
+                        "
                         x-show="show"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 -translate-y-4"
