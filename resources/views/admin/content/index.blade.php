@@ -66,6 +66,19 @@
                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-gold-400 focus:border-transparent outline-none">
                     </div>
                 </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la portada (Hero)</label>
+                    @if($content['hero_image'])
+                        <div class="mb-3">
+                            <img src="{{ asset('storage/' . ltrim($content['hero_image'], '/')) }}"
+                                 alt="Hero" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
+                        </div>
+                    @endif
+                    <input type="file" name="hero_image" accept="image/*"
+                           class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                    <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
+                </div>
             </div>
         </div>
 
@@ -304,6 +317,19 @@
                         </div>
                         @endforeach
                     </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la sección</label>
+                    @if($content['personaliz_image'])
+                        <div class="mb-3">
+                            <img src="{{ asset('storage/' . ltrim($content['personaliz_image'], '/')) }}"
+                                 alt="Personalización" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
+                        </div>
+                    @endif
+                    <input type="file" name="personaliz_image" accept="image/*"
+                           class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                    <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
                 </div>
             </div>
         </div>

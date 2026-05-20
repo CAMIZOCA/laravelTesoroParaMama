@@ -25,16 +25,18 @@ class PageContentController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $request->validate([
-            'historia_image'   => 'nullable|image|max:3072',
-            'tangible_image'   => 'nullable|image|max:3072',
+            'hero_image'        => 'nullable|image|max:3072',
+            'historia_image'    => 'nullable|image|max:3072',
+            'tangible_image'    => 'nullable|image|max:3072',
+            'personaliz_image'  => 'nullable|image|max:3072',
             'instr_step1_image' => 'nullable|image|max:3072',
             'instr_step2_image' => 'nullable|image|max:3072',
         ]);
 
-        $data = $request->except(['_token', '_method', 'historia_image', 'tangible_image', 'instr_step1_image', 'instr_step2_image']);
+        $data = $request->except(['_token', '_method', 'hero_image', 'historia_image', 'tangible_image', 'personaliz_image', 'instr_step1_image', 'instr_step2_image']);
 
         // Handle image uploads
-        foreach (['historia_image', 'tangible_image', 'instr_step1_image', 'instr_step2_image'] as $field) {
+        foreach (['hero_image', 'historia_image', 'tangible_image', 'personaliz_image', 'instr_step1_image', 'instr_step2_image'] as $field) {
             if ($request->hasFile($field)) {
                 $data[$field] = $this->storeUniquePublicFile($request->file($field), 'content');
             }

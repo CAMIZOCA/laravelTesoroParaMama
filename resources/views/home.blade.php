@@ -97,8 +97,8 @@
                     {{-- Marco decorativo --}}
                     <div class="absolute -top-4 -right-4 w-full h-full border border-champagne-300/40 rounded-3xl"></div>
                     <div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
-                        @if($c['historia_image'])
-                            <img src="{{ $mediaUrl($c['historia_image']) }}"
+                        @if($c['hero_image'])
+                            <img src="{{ $mediaUrl($c['hero_image']) }}"
                                  alt="Joya de leche materna"
                                  class="w-full h-full object-cover">
                         @else
@@ -590,9 +590,9 @@
             <div class="relative">
                 <div class="relative rounded-3xl overflow-hidden aspect-square bg-gradient-to-br
                             from-champagne-100 via-blush-50 to-cream-100 shadow-xl">
-                    @if($c['tangible_image'])
-                        <img src="{{ $mediaUrl($c['tangible_image']) }}"
-                             alt="{{ $c['tangible_title'] }}"
+                    @if($c['personaliz_image'])
+                        <img src="{{ $mediaUrl($c['personaliz_image']) }}"
+                             alt="{{ $c['personaliz_title'] }}"
                              class="w-full h-full object-cover">
                     @else
                         <div class="w-full h-full flex items-center justify-center">
