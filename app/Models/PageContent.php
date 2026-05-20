@@ -47,6 +47,7 @@ class PageContent extends Model
             'hero_subtitle'    => 'Transforma lo sagrado y pasajero de la lactancia en un recuerdo duradero, creado con tus propias manos.',
             'hero_btn_text'    => 'Pedir mi Kit',
             'hero_link_text'   => 'Ver los kits disponibles',
+            'hero_image'       => '',
 
             // Historia
             'historia_label'   => 'Nuestra Historia',
@@ -155,6 +156,7 @@ class PageContent extends Model
             'personaliz_item_4' => 'Tono de la leche (natural)',
             'personaliz_item_5' => 'Añadir piedras decorativas',
             'personaliz_item_6' => 'Grabado en la cadena',
+            'personaliz_image'  => '',
 
             // ── Testimonios ─────────────────────────────────────────────────
             'testimonios_label'  => 'Lo que dicen las mamás',
