@@ -222,22 +222,27 @@
     }
 
     .admin-btn-primary {
-        @apply admin-btn bg-tc-btn text-tc-btn-text hover:bg-tc-btn-hover;
+        @apply admin-btn;
+        background-color: var(--admin-btn);
+        color: var(--admin-btn-text);
     }
 
     .admin-btn-secondary {
-        @apply admin-btn bg-tc-section text-tc-text hover:bg-tc-border;
+        @apply admin-btn;
+        background-color: var(--admin-secondary-bg);
+        color: var(--admin-secondary-text);
     }
 
     .admin-btn-danger {
-        @apply admin-btn bg-tc-badge text-tc-primary hover:bg-tc-accent;
+        @apply admin-btn;
+        background-color: var(--admin-danger-bg);
+        color: var(--admin-danger-text);
     }
 
     /* Hover explícito — garantiza que var(--color-btn-hover) se aplica sin el
        wrapping rgb(var/opacity) de Tailwind v3 que invalida valores hex */
     .btn-primary:hover,
-    .btn-primary-sm:hover,
-    .admin-btn-primary:hover {
+    .btn-primary-sm:hover {
         background-color: var(--color-btn-hover);
     }
 
@@ -246,11 +251,26 @@
         background-color: var(--color-btn-inverse-hover);
     }
 
+    .admin-btn-primary:hover  { background-color: var(--admin-btn-hover); }
+    .admin-btn-secondary:hover { background-color: var(--admin-secondary-hover); }
+    .admin-btn-danger:hover   { background-color: var(--admin-danger-hover); }
+
     .form-input {
         @apply w-full rounded-lg border-tc-border shadow-sm focus:border-tc-primary focus:ring-tc-primary text-tc-text;
     }
 
     .form-label {
         @apply block text-sm font-medium text-tc-text mb-1;
+    }
+
+    .admin-layout .form-input {
+        border-color: var(--admin-input-border);
+        color: var(--admin-input-text);
+    }
+
+    .admin-layout .form-input:focus {
+        border-color: var(--admin-input-focus);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
     }
 }

@@ -37,9 +37,25 @@
             --color-footer:     {{ $t['theme_color_footer'] }};
             --color-header:     {{ $t['theme_color_header'] }};
         }
+
+        /* Variables fijas del admin — independientes del tema público */
+        :root {
+            --admin-btn:             #4F46E5;
+            --admin-btn-hover:       #4338CA;
+            --admin-btn-text:        #FFFFFF;
+            --admin-secondary-bg:    #F3F4F6;
+            --admin-secondary-text:  #374151;
+            --admin-secondary-hover: #E5E7EB;
+            --admin-danger-bg:       #FEE2E2;
+            --admin-danger-text:     #DC2626;
+            --admin-danger-hover:    #FECACA;
+            --admin-input-border:    #D1D5DB;
+            --admin-input-focus:     #4F46E5;
+            --admin-input-text:      #374151;
+        }
     </style>
 </head>
-<body class="bg-gray-50 antialiased" x-data="{ sidebarOpen: false }">
+<body class="admin-layout bg-gray-50 antialiased" x-data="{ sidebarOpen: false }">
 
     <!-- Admin Sidebar -->
     <div class="flex h-screen overflow-hidden">
