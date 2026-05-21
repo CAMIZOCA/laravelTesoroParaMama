@@ -802,12 +802,12 @@
 {{-- ═══════════════════════════════════════════════════════════════
      12. CTA FINAL
 ═══════════════════════════════════════════════════════════════ --}}
-<section class="py-28 bg-taupe-900 text-center relative overflow-hidden">
+<section class="py-28 bg-tc-footer text-center relative overflow-hidden">
 
     {{-- Fondo decorativo --}}
     <div class="absolute inset-0 opacity-5"
          style="background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');"></div>
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-champagne-400/50 to-transparent"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-tc-accent/50 to-transparent"></div>
 
     <div class="relative z-10 max-w-2xl mx-auto px-4 sm:px-6">
         <span class="hero-eyebrow block mb-4">{{ $c['cta_label'] }}</span>
@@ -815,9 +815,9 @@
             {{ $c['cta_title'] }}
         </h2>
         <div class="ornament max-w-[120px] mx-auto mb-6 opacity-30">
-            <span class="text-champagne-400 text-sm">✦</span>
+            <span class="text-tc-accent text-sm">✦</span>
         </div>
-        <p class="text-taupe-200 text-base mb-10 leading-relaxed opacity-80">
+        <p class="text-white/80 text-base mb-10 leading-relaxed">
             {{ $c['cta_description'] }}
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
@@ -828,7 +828,7 @@
                 </svg>
                 {{ $c['cta_btn_text'] }}
             </a>
-            <a href="#proceso" class="inline-flex items-center gap-2 text-taupe-300 hover:text-white
+            <a href="#proceso" class="inline-flex items-center gap-2 text-white/60 hover:text-white
                                       text-sm font-medium transition-colors duration-200 px-6 py-4">
                 Ver cómo funciona
             </a>
