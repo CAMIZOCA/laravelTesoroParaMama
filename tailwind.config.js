@@ -17,6 +17,39 @@ export default {
                 display: ['Marcellus', ...defaultTheme.fontFamily.serif],
             },
             colors: {
+                // Admin UI palette — hardcoded, independent of public theme
+                olive: {
+                    50:  '#f5f6f0',
+                    100: '#e8ead8',
+                    200: '#cfd3b2',
+                    300: '#b0b786',
+                    400: '#8f9a5d',
+                    500: '#717c42',
+                    600: '#576031',
+                    700: '#434c27',
+                    800: '#363d20',
+                    900: '#2d321b',
+                    950: '#161910',
+                },
+                cream: {
+                    50:  '#fefef9',
+                    100: '#fdf8ec',
+                    200: '#f9edca',
+                    300: '#f3db97',
+                    400: '#ebbd56',
+                    500: '#e0a020',
+                    600: '#c07d14',
+                    700: '#9a5f12',
+                    800: '#7d4b14',
+                    900: '#663c14',
+                    950: '#3a1f08',
+                },
+                gold: {
+                    300: '#f0d278',
+                    400: '#e8bc4a',
+                    500: '#d4a020',
+                    600: '#b08018',
+                },
                 // All theme colors are dynamic and come from CSS custom properties
                 // defined at runtime by ThemeSetting (public.blade.php)
                 'tc-primary':    'var(--color-primary)',
