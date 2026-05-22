@@ -171,6 +171,24 @@ class PageContent extends Model
             'testimonio_3_loc'   => 'Cuenca, Ecuador',
             'testimonio_3_text'  => 'La calidad es increíble y el proceso fue mucho más fácil de lo que esperaba. Lo recomiendo a todas las mamás.',
 
+            // ── Imágenes de secciones (1-3 fotos, soporte carrusel) ─────────
+            'proceso_image_1'     => '',
+            'proceso_image_2'     => '',
+            'proceso_image_3'     => '',
+            'kit_image_1'         => '',
+            'kit_image_2'         => '',
+            'kit_image_3'         => '',
+            'personaliz_image_2'  => '',
+            'personaliz_image_3'  => '',
+            'testimonios_image_1' => '',
+            'testimonios_image_2' => '',
+            'testimonios_image_3' => '',
+            'tangible_image_2'    => '',
+            'tangible_image_3'    => '',
+            'faq_image_1'         => '',
+            'faq_image_2'         => '',
+            'faq_image_3'         => '',
+
             // ── FAQ ─────────────────────────────────────────────────────────
             'faq_label'  => 'Preguntas frecuentes',
             'faq_title'  => 'Todo lo que necesitas saber',

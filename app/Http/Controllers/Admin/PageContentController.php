@@ -24,19 +24,25 @@ class PageContentController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
-        $request->validate([
-            'hero_image'        => 'nullable|image|max:3072',
-            'historia_image'    => 'nullable|image|max:3072',
-            'tangible_image'    => 'nullable|image|max:3072',
-            'personaliz_image'  => 'nullable|image|max:3072',
-            'instr_step1_image' => 'nullable|image|max:3072',
-            'instr_step2_image' => 'nullable|image|max:3072',
-        ]);
+        $imageFields = [
+            'hero_image', 'historia_image',
+            'tangible_image', 'tangible_image_2', 'tangible_image_3',
+            'personaliz_image', 'personaliz_image_2', 'personaliz_image_3',
+            'instr_step1_image', 'instr_step2_image',
+            'proceso_image_1', 'proceso_image_2', 'proceso_image_3',
+            'kit_image_1', 'kit_image_2', 'kit_image_3',
+            'testimonios_image_1', 'testimonios_image_2', 'testimonios_image_3',
+            'faq_image_1', 'faq_image_2', 'faq_image_3',
+        ];
 
-        $data = $request->except(['_token', '_method', 'hero_image', 'historia_image', 'tangible_image', 'personaliz_image', 'instr_step1_image', 'instr_step2_image']);
+        $request->validate(
+            array_fill_keys($imageFields, 'nullable|image|max:3072')
+        );
+
+        $data = $request->except(array_merge(['_token', '_method'], $imageFields));
 
         // Handle image uploads
-        foreach (['hero_image', 'historia_image', 'tangible_image', 'personaliz_image', 'instr_step1_image', 'instr_step2_image'] as $field) {
+        foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
                 $data[$field] = $this->storeUniquePublicFile($request->file($field), 'content');
             }

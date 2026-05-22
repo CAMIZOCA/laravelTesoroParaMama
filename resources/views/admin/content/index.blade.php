@@ -17,6 +17,7 @@
             ['key' => 'personaliz', 'label' => 'Personalización'],
             ['key' => 'galeria',     'label' => 'Galería'],
             ['key' => 'testimonios', 'label' => 'Testimonios'],
+            ['key' => 'faq',         'label' => 'FAQ'],
             ['key' => 'cta',         'label' => 'CTA Final'],
             ['key' => 'instrucciones', 'label' => 'Instrucciones'],
         ] as $t)
@@ -27,6 +28,11 @@
         </button>
         @endforeach
     </div>
+
+    @php
+        // Badge "Nuevo" visible durante 3 días desde el despliegue (2026-05-21)
+        $showNew = now()->lte(\Carbon\Carbon::parse('2026-05-24'));
+    @endphp
 
     <form action="{{ route('admin.content.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -190,6 +196,40 @@
                         @endforeach
                     </div>
                 </div>
+
+                {{-- Fotos del Kit --}}
+                <div class="border-t border-gray-100 pt-6">
+                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
+                        Fotos de la sección
+                        @if($showNew)
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gold-100 text-gold-700 border border-gold-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse inline-block"></span>Nuevo
+                        </span>
+                        @endif
+                    </p>
+                    <p class="text-xs text-gray-400 mb-4">1 foto → aparece entre el encabezado y las tarjetas. 2 ó 3 fotos → carrusel.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        @foreach([1 => 'kit_image_1', 2 => 'kit_image_2', 3 => 'kit_image_3'] as $n => $key)
+                        <div x-data="{ preview: null }">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Foto {{ $n }}{{ $n > 1 ? ' (opcional)' : '' }}</label>
+                            <div x-show="preview" class="mb-2">
+                                <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                                <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                            </div>
+                            @if(!empty($content[$key]))
+                            <div x-show="!preview" class="mb-2">
+                                <img src="{{ asset('storage/' . ltrim($content[$key], '/')) }}"
+                                     class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                                <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                            </div>
+                            @endif
+                            <input type="file" name="{{ $key }}" accept="image/*"
+                                   @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                                   class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -236,6 +276,40 @@
                         @endforeach
                     </div>
                 </div>
+
+                {{-- Fotos del proceso --}}
+                <div class="border-t border-gray-100 pt-6">
+                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
+                        Fotos de la sección
+                        @if($showNew)
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gold-100 text-gold-700 border border-gold-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse inline-block"></span>Nuevo
+                        </span>
+                        @endif
+                    </p>
+                    <p class="text-xs text-gray-400 mb-4">1 foto → aparece al lado de los pasos. 2 ó 3 fotos → se muestran como carrusel.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        @foreach([1 => 'proceso_image_1', 2 => 'proceso_image_2', 3 => 'proceso_image_3'] as $n => $key)
+                        <div x-data="{ preview: null }">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Foto {{ $n }}{{ $n > 1 ? ' (opcional)' : '' }}</label>
+                            <div x-show="preview" class="mb-2">
+                                <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                                <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                            </div>
+                            @if(!empty($content[$key]))
+                            <div x-show="!preview" class="mb-2">
+                                <img src="{{ asset('storage/' . ltrim($content[$key], '/')) }}"
+                                     class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                                <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                            </div>
+                            @endif
+                            <input type="file" name="{{ $key }}" accept="image/*"
+                                   @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                                   class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -268,17 +342,57 @@
                               class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-gold-400 focus:border-transparent outline-none">{{ $content['tangible_p2'] }}</textarea>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la sección</label>
-                    @if($content['tangible_image'])
-                        <div class="mb-3">
-                            <img src="{{ asset('storage/' . ltrim($content['tangible_image'], '/')) }}"
-                                 alt="Tu Joya" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
+                <div class="border-t border-gray-100 pt-6">
+                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
+                        Fotos de la sección
+                        @if($showNew)
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gold-100 text-gold-700 border border-gold-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse inline-block"></span>Nuevo
+                        </span>
+                        @endif
+                    </p>
+                    <p class="text-xs text-gray-400 mb-4">1 foto → aparece al lado del texto. 2 ó 3 fotos → se muestran como carrusel.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {{-- Foto 1 (campo original) --}}
+                        <div x-data="{ preview: null }">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Foto 1</label>
+                            <div x-show="preview" class="mb-2">
+                                <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                                <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                            </div>
+                            @if(!empty($content['tangible_image']))
+                            <div x-show="!preview" class="mb-2">
+                                <img src="{{ asset('storage/' . ltrim($content['tangible_image'], '/')) }}"
+                                     class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                                <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                            </div>
+                            @endif
+                            <input type="file" name="tangible_image" accept="image/*"
+                                   @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                                   class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
                         </div>
-                    @endif
-                    <input type="file" name="tangible_image" accept="image/*"
-                           class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
-                    <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
+                        {{-- Fotos 2 y 3 --}}
+                        @foreach([2 => 'tangible_image_2', 3 => 'tangible_image_3'] as $n => $key)
+                        <div x-data="{ preview: null }">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Foto {{ $n }} (opcional)</label>
+                            <div x-show="preview" class="mb-2">
+                                <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                                <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                            </div>
+                            @if(!empty($content[$key]))
+                            <div x-show="!preview" class="mb-2">
+                                <img src="{{ asset('storage/' . ltrim($content[$key], '/')) }}"
+                                     class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                                <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                            </div>
+                            @endif
+                            <input type="file" name="{{ $key }}" accept="image/*"
+                                   @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                                   class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                        </div>
+                        @endforeach
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
                 </div>
             </div>
         </div>
@@ -319,17 +433,57 @@
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Imagen de la sección</label>
-                    @if($content['personaliz_image'])
-                        <div class="mb-3">
-                            <img src="{{ asset('storage/' . ltrim($content['personaliz_image'], '/')) }}"
-                                 alt="Personalización" class="h-40 w-auto rounded-xl object-cover border border-gray-200">
+                <div class="border-t border-gray-100 pt-6">
+                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
+                        Fotos de la sección
+                        @if($showNew)
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gold-100 text-gold-700 border border-gold-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse inline-block"></span>Nuevo
+                        </span>
+                        @endif
+                    </p>
+                    <p class="text-xs text-gray-400 mb-4">1 foto → aparece al lado del checklist. 2 ó 3 fotos → se muestran como carrusel.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {{-- Foto 1 (campo original) --}}
+                        <div x-data="{ preview: null }">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Foto 1</label>
+                            <div x-show="preview" class="mb-2">
+                                <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                                <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                            </div>
+                            @if(!empty($content['personaliz_image']))
+                            <div x-show="!preview" class="mb-2">
+                                <img src="{{ asset('storage/' . ltrim($content['personaliz_image'], '/')) }}"
+                                     class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                                <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                            </div>
+                            @endif
+                            <input type="file" name="personaliz_image" accept="image/*"
+                                   @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                                   class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
                         </div>
-                    @endif
-                    <input type="file" name="personaliz_image" accept="image/*"
-                           class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
-                    <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
+                        {{-- Fotos 2 y 3 --}}
+                        @foreach([2 => 'personaliz_image_2', 3 => 'personaliz_image_3'] as $n => $key)
+                        <div x-data="{ preview: null }">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Foto {{ $n }} (opcional)</label>
+                            <div x-show="preview" class="mb-2">
+                                <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                                <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                            </div>
+                            @if(!empty($content[$key]))
+                            <div x-show="!preview" class="mb-2">
+                                <img src="{{ asset('storage/' . ltrim($content[$key], '/')) }}"
+                                     class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                                <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                            </div>
+                            @endif
+                            <input type="file" name="{{ $key }}" accept="image/*"
+                                   @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                                   class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                        </div>
+                        @endforeach
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
                 </div>
             </div>
         </div>
@@ -404,6 +558,81 @@
                         @endforeach
                     </div>
                 </div>
+
+                {{-- Fotos de testimonios --}}
+                <div class="border-t border-gray-100 pt-6">
+                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
+                        Fotos de la sección
+                        @if($showNew)
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gold-100 text-gold-700 border border-gold-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse inline-block"></span>Nuevo
+                        </span>
+                        @endif
+                    </p>
+                    <p class="text-xs text-gray-400 mb-4">1 foto → aparece entre el encabezado y los testimonios. 2 ó 3 fotos → carrusel.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        @foreach([1 => 'testimonios_image_1', 2 => 'testimonios_image_2', 3 => 'testimonios_image_3'] as $n => $key)
+                        <div x-data="{ preview: null }">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Foto {{ $n }}{{ $n > 1 ? ' (opcional)' : '' }}</label>
+                            <div x-show="preview" class="mb-2">
+                                <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                                <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                            </div>
+                            @if(!empty($content[$key]))
+                            <div x-show="!preview" class="mb-2">
+                                <img src="{{ asset('storage/' . ltrim($content[$key], '/')) }}"
+                                     class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                                <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                            </div>
+                            @endif
+                            <input type="file" name="{{ $key }}" accept="image/*"
+                                   @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                                   class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ── FAQ ── --}}
+        <div x-show="tab === 'faq'" x-cloak>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6">
+                <h3 class="font-serif text-xl text-olive-900 font-semibold border-b border-gray-100 pb-4">
+                    Sección "Preguntas Frecuentes"
+                </h3>
+                <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
+                    Fotos de la sección
+                    @if($showNew)
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gold-100 text-gold-700 border border-gold-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse inline-block"></span>Nuevo
+                    </span>
+                    @endif
+                </p>
+                <p class="text-sm text-gray-500">Agrega hasta 3 fotos de referencia que aparecerán encima del acordeón de preguntas.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    @foreach([1 => 'faq_image_1', 2 => 'faq_image_2', 3 => 'faq_image_3'] as $n => $key)
+                    <div x-data="{ preview: null }">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Foto {{ $n }}{{ $n > 1 ? ' (opcional)' : '' }}</label>
+                        <div x-show="preview" class="mb-2">
+                            <img :src="preview" class="h-24 w-full rounded-xl object-cover border-2 border-gold-300">
+                            <p class="text-xs text-gold-600 mt-1">Vista previa — aún no guardada</p>
+                        </div>
+                        @if(!empty($content[$key]))
+                        <div x-show="!preview" class="mb-2">
+                            <img src="{{ asset('storage/' . ltrim($content[$key], '/')) }}"
+                                 class="h-24 w-full rounded-xl object-cover border border-gray-200">
+                            <p class="text-xs text-gray-400 mt-1">Imagen actual</p>
+                        </div>
+                        @endif
+                        <input type="file" name="{{ $key }}" accept="image/*"
+                               @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : null"
+                               class="block w-full text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cream-100 file:text-olive-800 hover:file:bg-cream-200">
+                    </div>
+                    @endforeach
+                </div>
+                <p class="text-xs text-gray-400">JPG, PNG, WebP. Máx 3 MB. Dejar vacío para mantener la imagen actual.</p>
             </div>
         </div>
 
