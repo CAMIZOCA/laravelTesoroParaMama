@@ -447,19 +447,16 @@
         <div x-data="{ slide: 0, imgs: {{ json_encode($procesoImgs) }} }"
              class="relative mt-12 max-w-2xl mx-auto rounded-2xl overflow-hidden aspect-[16/7] shadow-lg">
             <template x-for="(img, i) in imgs" :key="i">
-                <div x-show="slide === i"
-                     x-transition:enter="transition ease-out duration-500"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     class="absolute inset-0">
+                <div :style="{ opacity: slide === i ? 1 : 0, zIndex: slide === i ? 10 : 0 }"
+                     class="absolute inset-0 transition-opacity duration-500">
                     <img :src="img" class="w-full h-full object-cover" alt="">
                 </div>
             </template>
             <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                    class="absolute z-20 left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
             <button @click="slide = (slide + 1) % imgs.length"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                    class="absolute z-20 right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute z-20 bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
                 <template x-for="(_, i) in imgs" :key="i">
                     <button @click="slide = i"
                             :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
@@ -572,19 +569,16 @@
         <div x-data="{ slide: 0, imgs: {{ json_encode($kitImgs) }} }"
              class="relative mb-12 max-w-2xl mx-auto rounded-2xl overflow-hidden aspect-[16/7] shadow-lg">
             <template x-for="(img, i) in imgs" :key="i">
-                <div x-show="slide === i"
-                     x-transition:enter="transition ease-out duration-500"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     class="absolute inset-0">
+                <div :style="{ opacity: slide === i ? 1 : 0, zIndex: slide === i ? 10 : 0 }"
+                     class="absolute inset-0 transition-opacity duration-500">
                     <img :src="img" class="w-full h-full object-cover" alt="">
                 </div>
             </template>
             <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                    class="absolute z-20 left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
             <button @click="slide = (slide + 1) % imgs.length"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                    class="absolute z-20 right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute z-20 bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
                 <template x-for="(_, i) in imgs" :key="i">
                     <button @click="slide = i"
                             :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
@@ -683,19 +677,16 @@
                 <div x-data="{ slide: 0, imgs: {{ json_encode($personalizImgs) }} }"
                      class="relative rounded-3xl overflow-hidden aspect-square shadow-xl">
                     <template x-for="(img, i) in imgs" :key="i">
-                        <div x-show="slide === i"
-                             x-transition:enter="transition ease-out duration-500"
-                             x-transition:enter-start="opacity-0"
-                             x-transition:enter-end="opacity-100"
-                             class="absolute inset-0">
+                        <div :style="{ opacity: slide === i ? 1 : 0, zIndex: slide === i ? 10 : 0 }"
+                             class="absolute inset-0 transition-opacity duration-500">
                             <img :src="img" class="w-full h-full object-cover" alt="">
                         </div>
                     </template>
                     <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
-                            class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                            class="absolute z-20 left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
                     <button @click="slide = (slide + 1) % imgs.length"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
-                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                            class="absolute z-20 right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+                    <div class="absolute z-20 bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
                         <template x-for="(_, i) in imgs" :key="i">
                             <button @click="slide = i"
                                     :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
@@ -745,19 +736,16 @@
         <div x-data="{ slide: 0, imgs: {{ json_encode($testimoniosImgs) }} }"
              class="relative mb-10 max-w-lg mx-auto rounded-2xl overflow-hidden aspect-[4/3] shadow-lg">
             <template x-for="(img, i) in imgs" :key="i">
-                <div x-show="slide === i"
-                     x-transition:enter="transition ease-out duration-500"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     class="absolute inset-0">
+                <div :style="{ opacity: slide === i ? 1 : 0, zIndex: slide === i ? 10 : 0 }"
+                     class="absolute inset-0 transition-opacity duration-500">
                     <img :src="img" class="w-full h-full object-cover" alt="">
                 </div>
             </template>
             <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                    class="absolute z-20 left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
             <button @click="slide = (slide + 1) % imgs.length"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                    class="absolute z-20 right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute z-20 bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
                 <template x-for="(_, i) in imgs" :key="i">
                     <button @click="slide = i"
                             :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
@@ -844,19 +832,16 @@
             <div x-data="{ slide: 0, imgs: {{ json_encode($tangibleImgs) }} }"
                  class="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
                 <template x-for="(img, i) in imgs" :key="i">
-                    <div x-show="slide === i"
-                         x-transition:enter="transition ease-out duration-500"
-                         x-transition:enter-start="opacity-0"
-                         x-transition:enter-end="opacity-100"
-                         class="absolute inset-0">
+                    <div :style="{ opacity: slide === i ? 1 : 0, zIndex: slide === i ? 10 : 0 }"
+                         class="absolute inset-0 transition-opacity duration-500">
                         <img :src="img" class="w-full h-full object-cover" alt="">
                     </div>
                 </template>
                 <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
-                        class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                        class="absolute z-20 left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
                 <button @click="slide = (slide + 1) % imgs.length"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
-                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                        class="absolute z-20 right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+                <div class="absolute z-20 bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
                     <template x-for="(_, i) in imgs" :key="i">
                         <button @click="slide = i"
                                 :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
@@ -902,19 +887,16 @@
         <div x-data="{ slide: 0, imgs: {{ json_encode($faqImgs) }} }"
              class="relative mb-10 max-w-sm mx-auto rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
             <template x-for="(img, i) in imgs" :key="i">
-                <div x-show="slide === i"
-                     x-transition:enter="transition ease-out duration-500"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     class="absolute inset-0">
+                <div :style="{ opacity: slide === i ? 1 : 0, zIndex: slide === i ? 10 : 0 }"
+                     class="absolute inset-0 transition-opacity duration-500">
                     <img :src="img" class="w-full h-full object-cover" alt="">
                 </div>
             </template>
             <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                    class="absolute z-20 left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
             <button @click="slide = (slide + 1) % imgs.length"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                    class="absolute z-20 right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute z-20 bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
                 <template x-for="(_, i) in imgs" :key="i">
                     <button @click="slide = i"
                             :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
