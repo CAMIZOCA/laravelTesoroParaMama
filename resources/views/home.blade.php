@@ -16,6 +16,14 @@
         }
         return asset('storage/' . ltrim($path, '/'));
     };
+
+    // Devuelve array de URLs no vacías para las fotos de una sección
+    $sectionImgs = function (array $keys) use ($c, $mediaUrl): array {
+        return array_values(array_filter(array_map(
+            fn($k) => $mediaUrl($c[$k] ?? ''),
+            $keys
+        )));
+    };
 @endphp
 
 {{-- ═══════════════════════════════════════════════════════════════
@@ -429,6 +437,38 @@
             @endforeach
         </div>
 
+        {{-- Fotos del proceso --}}
+        @php $procesoImgs = $sectionImgs(['proceso_image_1', 'proceso_image_2', 'proceso_image_3']); @endphp
+        @if(count($procesoImgs) === 1)
+        <div class="mt-12 max-w-2xl mx-auto rounded-2xl overflow-hidden aspect-[16/7] shadow-lg">
+            <img src="{{ $procesoImgs[0] }}" alt="" class="w-full h-full object-cover">
+        </div>
+        @elseif(count($procesoImgs) >= 2)
+        <div x-data="{ slide: 0, imgs: {{ json_encode($procesoImgs) }} }"
+             class="relative mt-12 max-w-2xl mx-auto rounded-2xl overflow-hidden aspect-[16/7] shadow-lg">
+            <template x-for="(img, i) in imgs" :key="i">
+                <div x-show="slide === i"
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     class="absolute inset-0">
+                    <img :src="img" class="w-full h-full object-cover" alt="">
+                </div>
+            </template>
+            <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+            <button @click="slide = (slide + 1) % imgs.length"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                <template x-for="(_, i) in imgs" :key="i">
+                    <button @click="slide = i"
+                            :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
+                            class="w-2 h-2 rounded-full transition-all"></button>
+                </template>
+            </div>
+        </div>
+        @endif
+
         <div class="text-center mt-12">
             <a href="{{ route('tienda') }}" class="btn-primary">
                 Comenzar ahora
@@ -522,6 +562,38 @@
             ];
         @endphp
 
+        {{-- Fotos del Kit --}}
+        @php $kitImgs = $sectionImgs(['kit_image_1', 'kit_image_2', 'kit_image_3']); @endphp
+        @if(count($kitImgs) === 1)
+        <div class="mb-12 max-w-2xl mx-auto rounded-2xl overflow-hidden aspect-[16/7] shadow-lg">
+            <img src="{{ $kitImgs[0] }}" alt="" class="w-full h-full object-cover">
+        </div>
+        @elseif(count($kitImgs) >= 2)
+        <div x-data="{ slide: 0, imgs: {{ json_encode($kitImgs) }} }"
+             class="relative mb-12 max-w-2xl mx-auto rounded-2xl overflow-hidden aspect-[16/7] shadow-lg">
+            <template x-for="(img, i) in imgs" :key="i">
+                <div x-show="slide === i"
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     class="absolute inset-0">
+                    <img :src="img" class="w-full h-full object-cover" alt="">
+                </div>
+            </template>
+            <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+            <button @click="slide = (slide + 1) % imgs.length"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                <template x-for="(_, i) in imgs" :key="i">
+                    <button @click="slide = i"
+                            :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
+                            class="w-2 h-2 rounded-full transition-all"></button>
+                </template>
+            </div>
+        </div>
+        @endif
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($features as $feature)
             @if($feature['title'])
@@ -586,26 +658,52 @@
                 </a>
             </div>
 
-            {{-- Visual decorativo --}}
+            {{-- Visual: 1 foto al lado, 2-3 fotos en carrusel --}}
+            @php $personalizImgs = $sectionImgs(['personaliz_image', 'personaliz_image_2', 'personaliz_image_3']); @endphp
             <div class="relative">
+                @if(count($personalizImgs) === 0)
                 <div class="relative rounded-3xl overflow-hidden aspect-square bg-gradient-to-br
                             from-champagne-100 via-blush-50 to-cream-100 shadow-xl">
-                    @if($c['personaliz_image'])
-                        <img src="{{ $mediaUrl($c['personaliz_image']) }}"
-                             alt="{{ $c['personaliz_title'] }}"
-                             class="w-full h-full object-cover">
-                    @else
-                        <div class="w-full h-full flex items-center justify-center">
-                            <div class="text-center text-taupe-300 p-8">
-                                <svg class="w-20 h-20 mx-auto mb-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8"
-                                          d="M12 8v13m0-13V6a4 4 0 118 0v2m-8 0H5a2 2 0 00-2 2v7a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V8"/>
-                                </svg>
-                                <p class="font-serif italic text-sm opacity-70">Foto de producto</p>
-                            </div>
+                    <div class="w-full h-full flex items-center justify-center">
+                        <div class="text-center text-taupe-300 p-8">
+                            <svg class="w-20 h-20 mx-auto mb-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8"
+                                      d="M12 8v13m0-13V6a4 4 0 118 0v2m-8 0H5a2 2 0 00-2 2v7a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V8"/>
+                            </svg>
+                            <p class="font-serif italic text-sm opacity-70">Foto de producto</p>
                         </div>
-                    @endif
+                    </div>
                 </div>
+                @elseif(count($personalizImgs) === 1)
+                <div class="relative rounded-3xl overflow-hidden aspect-square shadow-xl">
+                    <img src="{{ $personalizImgs[0] }}" alt="{{ $c['personaliz_title'] }}"
+                         class="w-full h-full object-cover">
+                </div>
+                @else
+                <div x-data="{ slide: 0, imgs: {{ json_encode($personalizImgs) }} }"
+                     class="relative rounded-3xl overflow-hidden aspect-square shadow-xl">
+                    <template x-for="(img, i) in imgs" :key="i">
+                        <div x-show="slide === i"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0"
+                             x-transition:enter-end="opacity-100"
+                             class="absolute inset-0">
+                            <img :src="img" class="w-full h-full object-cover" alt="">
+                        </div>
+                    </template>
+                    <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                    <button @click="slide = (slide + 1) % imgs.length"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                        <template x-for="(_, i) in imgs" :key="i">
+                            <button @click="slide = i"
+                                    :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
+                                    class="w-2 h-2 rounded-full transition-all"></button>
+                        </template>
+                    </div>
+                </div>
+                @endif
 
                 {{-- Tag flotante --}}
                 <div class="absolute -top-4 -right-4 bg-white rounded-2xl shadow-md px-4 py-3 border border-cream-200">
@@ -636,6 +734,38 @@
                 ['name' => $c['testimonio_3_name'], 'loc' => $c['testimonio_3_loc'], 'text' => $c['testimonio_3_text']],
             ];
         @endphp
+
+        {{-- Fotos de testimonios --}}
+        @php $testimoniosImgs = $sectionImgs(['testimonios_image_1', 'testimonios_image_2', 'testimonios_image_3']); @endphp
+        @if(count($testimoniosImgs) === 1)
+        <div class="mb-10 max-w-lg mx-auto rounded-2xl overflow-hidden aspect-[4/3] shadow-lg">
+            <img src="{{ $testimoniosImgs[0] }}" alt="" class="w-full h-full object-cover">
+        </div>
+        @elseif(count($testimoniosImgs) >= 2)
+        <div x-data="{ slide: 0, imgs: {{ json_encode($testimoniosImgs) }} }"
+             class="relative mb-10 max-w-lg mx-auto rounded-2xl overflow-hidden aspect-[4/3] shadow-lg">
+            <template x-for="(img, i) in imgs" :key="i">
+                <div x-show="slide === i"
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     class="absolute inset-0">
+                    <img :src="img" class="w-full h-full object-cover" alt="">
+                </div>
+            </template>
+            <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+            <button @click="slide = (slide + 1) % imgs.length"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                <template x-for="(_, i) in imgs" :key="i">
+                    <button @click="slide = i"
+                            :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
+                            class="w-2 h-2 rounded-full transition-all"></button>
+                </template>
+            </div>
+        </div>
+        @endif
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @foreach($testimonios as $t)
@@ -695,20 +825,46 @@
                 </div>
             </div>
 
+            @php $tangibleImgs = $sectionImgs(['tangible_image', 'tangible_image_2', 'tangible_image_3']); @endphp
+            @if(count($tangibleImgs) === 0)
             <div class="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
-                @if($c['tangible_image'])
-                    <img src="{{ $mediaUrl($c['tangible_image']) }}"
-                         alt="{{ $c['tangible_title'] }}"
-                         class="w-full h-full object-cover">
-                @else
-                    <div class="w-full h-full bg-gradient-to-br from-champagne-100 to-blush-100
-                                flex items-center justify-center">
-                        <p class="font-serif italic text-taupe-300 text-lg text-center px-8">
-                            "Un recuerdo hecho joya"
-                        </p>
-                    </div>
-                @endif
+                <div class="w-full h-full bg-gradient-to-br from-champagne-100 to-blush-100
+                            flex items-center justify-center">
+                    <p class="font-serif italic text-taupe-300 text-lg text-center px-8">
+                        "Un recuerdo hecho joya"
+                    </p>
+                </div>
             </div>
+            @elseif(count($tangibleImgs) === 1)
+            <div class="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
+                <img src="{{ $tangibleImgs[0] }}" alt="{{ $c['tangible_title'] }}"
+                     class="w-full h-full object-cover">
+            </div>
+            @else
+            <div x-data="{ slide: 0, imgs: {{ json_encode($tangibleImgs) }} }"
+                 class="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
+                <template x-for="(img, i) in imgs" :key="i">
+                    <div x-show="slide === i"
+                         x-transition:enter="transition ease-out duration-500"
+                         x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100"
+                         class="absolute inset-0">
+                        <img :src="img" class="w-full h-full object-cover" alt="">
+                    </div>
+                </template>
+                <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
+                        class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+                <button @click="slide = (slide + 1) % imgs.length"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                    <template x-for="(_, i) in imgs" :key="i">
+                        <button @click="slide = i"
+                                :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
+                                class="w-2 h-2 rounded-full transition-all"></button>
+                    </template>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
@@ -735,6 +891,38 @@
                 ['q' => $c['faq_6_q'], 'a' => $c['faq_6_a']],
             ];
         @endphp
+
+        {{-- Fotos del FAQ --}}
+        @php $faqImgs = $sectionImgs(['faq_image_1', 'faq_image_2', 'faq_image_3']); @endphp
+        @if(count($faqImgs) === 1)
+        <div class="mb-10 max-w-sm mx-auto rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
+            <img src="{{ $faqImgs[0] }}" alt="" class="w-full h-full object-cover">
+        </div>
+        @elseif(count($faqImgs) >= 2)
+        <div x-data="{ slide: 0, imgs: {{ json_encode($faqImgs) }} }"
+             class="relative mb-10 max-w-sm mx-auto rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
+            <template x-for="(img, i) in imgs" :key="i">
+                <div x-show="slide === i"
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     class="absolute inset-0">
+                    <img :src="img" class="w-full h-full object-cover" alt="">
+                </div>
+            </template>
+            <button @click="slide = (slide - 1 + imgs.length) % imgs.length"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">‹</button>
+            <button @click="slide = (slide + 1) % imgs.length"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow transition-colors text-taupe-700 font-bold">›</button>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                <template x-for="(_, i) in imgs" :key="i">
+                    <button @click="slide = i"
+                            :class="slide === i ? 'bg-white scale-110' : 'bg-white/50'"
+                            class="w-2 h-2 rounded-full transition-all"></button>
+                </template>
+            </div>
+        </div>
+        @endif
 
         <div x-data="{ open: null }">
             @foreach($faqs as $i => $faq)
